@@ -1,0 +1,169 @@
+:root {
+  --sla-navy: #1A2B3C;      /* لون اللوجو الأساسي */
+  --sla-gold: #C5A059;      /* لون اللوجو الذهبي */
+  --sla-light-gold: #f4eee0;
+  --sla-text-gray: #5e6d7a;
+  --sla-bg-soft: #f9fbff;
+}
+
+.sla-categories {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 30%, #dee2e6 70%, #ced4da 100%);
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.sla-categories::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(197, 160, 89, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(26, 43, 60, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.sla-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 25px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Style */
+.sla-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sla-badge {
+  color: var(--sla-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sla-title {
+  color: var(--sla-navy);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sla-line {
+  width: 60px;
+  height: 4px;
+  background: var(--sla-gold);
+  margin: 20px auto 0;
+  border-radius: 2px;
+}
+
+/* Grid & Cards */
+.sla-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.sla-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.sla-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--sla-gold);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.sla-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(26, 43, 60, 0.1);
+}
+
+.sla-card:hover::before {
+  transform: scaleX(1);
+}
+
+.sla-icon-box {
+  width: 80px;
+  height: 80px;
+  background: var(--sla-bg-soft);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 2.2rem;
+  transition: all 0.3s ease;
+}
+
+.sla-card:hover .sla-icon-box {
+  background: var(--sla-navy);
+  transform: rotateY(360deg);
+  color: white;
+}
+
+.sla-card h3 {
+  color: var(--sla-navy);
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.sla-card p {
+  color: var(--sla-text-gray);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+.sla-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--sla-gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.sla-card:hover .sla-card-footer {
+  opacity: 1;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.sla-card:hover .arrow-icon {
+  transform: translateX(-5px); /* للاتجاه العربي */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sla-title { font-size: 1.8rem; }
+  .sla-grid { grid-template-columns: 1fr; }
+}

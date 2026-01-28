@@ -1,0 +1,21 @@
+import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './feature/home/pages/Home'
+import ProfilePage from './feature/profile/Profile'
+import Contact from './feature/contact/Contact'
+import ScrollToTop from './sheard/components/ScrollToTop'
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
+  )
+}
+
+export default App

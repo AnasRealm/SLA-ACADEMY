@@ -1,0 +1,175 @@
+:root {
+  --primary-navy: #1a2b48; /* الكحلي من اللوغو */
+  --accent-gold: #b59461;  /* الذهبي من اللوغو */
+  --bg-light: #f8f9fa;
+  --text-dark: #2d3436;
+  --white: #ffffff;
+}
+
+.profile-container {
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  margin-top: 80px; /* إضافة مسافة للـ navbar الثابت */
+}
+
+/* Header & Avatar */
+.profile-header {
+  background: linear-gradient(135deg, var(--primary-navy) 0%, #2c3e50 100%);
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 80px;
+}
+
+.profile-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  position: absolute;
+  top: 100px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: -70px;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid var(--white);
+  object-fit: cover;
+  background: #eee;
+}
+
+.edit-pic-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: var(--accent-gold);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.edit-pic-btn:hover {
+  transform: scale(1.1);
+  background: var(--primary-navy);
+}
+
+.user-name {
+  margin: 15px 0 5px;
+  color: var(--primary-navy);
+  font-size: 1.5rem;
+}
+
+.user-role {
+  color: #636e72;
+  font-size: 0.9rem;
+}
+
+/* Content Sections */
+.profile-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-navy);
+  border-bottom: 2px solid var(--accent-gold);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.info-section, .courses-section {
+  background: var(--white);
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.info-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #b59461;
+  margin-bottom: 5px;
+}
+
+.info-item span {
+  font-weight: 600;
+  color: var(--primary-navy);
+  display: block;
+}
+
+/* Courses Styling */
+.course-card {
+  background: #fcfcfc;
+  border: 1px solid #edf2f7;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.course-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.course-info h3 {
+  font-size: 1rem;
+  color: var(--primary-navy);
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  font-weight: bold;
+}
+
+.progress-bar-bg {
+  background: #eee;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: var(--accent-gold);
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-in-out;
+}
