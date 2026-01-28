@@ -7,10 +7,18 @@ import MostPopular from "../componats/MostPopular/MostPopular";
 const Home = () => {
   return (
     <MainLayout>
-      <Hero />
-      <MostPopular />
-      <Categories />
-      <About />
+      <div id="home">
+        <Hero />
+      </div>
+      <div id="courses">
+        <MostPopular />
+      </div>
+      <div id="categories">
+        <Categories />
+      </div>
+      <div id="about">
+        <About />
+      </div>
     </MainLayout>
   );
 };

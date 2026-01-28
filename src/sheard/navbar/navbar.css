@@ -1,189 +1,263 @@
-/* إضافة Font Awesome إذا لم يكن موجود */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+/* إعدادات المتغيرات للألوان */
+:root {
+  --primary-color: #1A2B3C;
+  --accent-color: #C5A059;
+  --white: #ffffff;
+  --nav-height: 80px;
+}
 
+/* ============================
+   1. تنسيق الناف بار العام (Desktop)
+   ============================ */
 .navbar {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: var(--nav-height);
+  background: transparent; /* شفاف في البداية */
+  transition: all 0.3s ease;
   z-index: 1000;
-  border-bottom: 1px solid rgba(26, 43, 60, 0.1);
+  direction: rtl; /* اتجاه عربي */
+  font-family: 'Tajawal', sans-serif; /* تأكد من وجود الخط */
 }
 
-.nav-container {
-  width:100%;
-  max-width:1500px;
+/* حالة السكرول - يتحول لأبيض */
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* اللوجو */
+.navbar-logo {
+  cursor: pointer;
+  height: 50px;
+}
+
+.navbar-logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* روابط الديسكتوب */
+.nav-menu-desktop {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu-desktop li {
+  color: var(--primary-color);
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+}
+
+.nav-menu-desktop li:hover {
+  color: var(--accent-color);
+}
+
+/* تأثير الخط تحت الرابط عند الهوفر */
+.nav-menu-desktop li::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  right: 0;
+  background-color: var(--accent-color);
+  transition: width 0.3s;
+}
+
+.nav-menu-desktop li:hover::after {
+  width: 100%;
+}
+
+/* منطقة الأزرار (يسار) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.icon-btn:hover {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.login-btn-desktop {
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn-desktop:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* أيقونة الهامبرغر - مخفية في الديسكتوب */
+.hamburger-icon {
+  display: none;
+  font-size: 24px;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+/* ============================
+   2. تنسيق الموبايل (Responsive)
+   ============================ */
+@media screen and (max-width: 992px) {
+  /* إخفاء روابط الديسكتوب وزر الدخول الكبير */
+  .nav-menu-desktop,
+  .login-btn-desktop {
+    display: none;
+  }
+
+  /* إظهار الهامبرغر */
+  .hamburger-icon {
+    display: block;
+  }
+
+  /* تصغير اللوجو قليلاً للموبايل */
+  .navbar-logo {
+    height: 40px;
+  }
+}
+
+/* ============================
+   3. القائمة الجانبية (Sidebar Logic)
+   ============================ */
+/* الخلفية المعتمة */
+.mobile-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.mobile-sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* السايد بار نفسه */
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* مخفي خارج الشاشة يميناً */
+  width: 280px;
+  height: 100vh;
+  background: var(--white);
+  z-index: 1002;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
   direction: rtl;
 }
 
-.logo {
-    width: 190px;
-    height: auto;
+.mobile-sidebar.active {
+  right: 0; /* يدخل للشاشة */
 }
 
-.logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.nav-links {
+/* محتويات السايد بار */
+.sidebar-header {
   display: flex;
-  list-style: none;
-  gap: 2.5rem;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #1A2B3C;
-  font-weight: 500;
-  transition: 0.3s;
-  font-size: 20px;
-}
-
-.nav-links a:hover {
-  color: #C5A059;
-}
-
-.nav-link-btn {
-  background: transparent;
-  border: none;
-  color: #1A2B3C;
-  font-weight: 500;
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.nav-link-btn:hover {
-  color: #C5A059;
-}
-
-.nav-actions {
-  display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
 }
 
-.user-icon-btn {
-  background: transparent;
-  border: 2px solid #1A2B3C;
-  color: #1A2B3C;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 18px;
+.sidebar-header img {
+  height: 40px;
 }
 
-.user-icon-btn:hover {
-  background: #1A2B3C;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(26, 43, 60, 0.3);
-}
-
-.login-btn {
-  background: transparent;
-  border: none;
-  color: #1A2B3C;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.join-btn {
-  background: #1A2B3C;
-  color: white;
-  padding: 10px 25px;
-  border-radius: 50px;
-  border: none;
-  font-weight: 600;
-  transition: 0.4s;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(26, 43, 60, 0.2);
-}
-
-.join-btn:hover {
-  background: #C5A059;
-  transform: translateY(-2px);
-}
-
-.mobile-menu-btn {
-  display: none;
-  background: transparent;
-  border: none;
-  color: #1A2B3C;
+.close-sidebar {
   font-size: 24px;
+  color: var(--primary-color);
   cursor: pointer;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .nav-container {
-    padding: 0 20px;
-  }
-  
-  .logo {
-    width: 120px;
-  }
-  
-  .mobile-menu-btn {
-    display: block;
-  }
-  
-  .nav-links {
-    position: fixed;
-    top: 80px;
-    right: -100%;
-    width: 100%;
-    height: calc(100vh - 80px);
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 50px;
-    transition: right 0.3s ease;
-    z-index: 999;
-  }
-  
-  .nav-links.mobile-open {
-    right: 0;
-  }
-  
-  .nav-links li {
-    margin: 20px 0;
-  }
-  
-  .nav-links a, .nav-link-btn {
-    font-size: 24px;
-    padding: 15px;
-  }
-  
-  .nav-actions {
-    gap: 10px;
-  }
-  
-  .user-icon-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
-  }
-  
-  .join-btn {
-    padding: 8px 20px;
-    font-size: 14px;
-  }
+.mobile-menu-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-menu-links li {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mobile-menu-links li:hover {
+  color: var(--accent-color);
+  padding-right: 10px; /* حركة بسيطة لليسار */
+}
+
+.mobile-sidebar-footer {
+  margin-top: auto; /* دفع الزر للأسفل */
+  padding-top: 20px;
+}
+
+.mobile-login-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }

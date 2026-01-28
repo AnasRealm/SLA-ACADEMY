@@ -230,6 +230,92 @@
   transform: translateY(-50%);
 }
 
+/* Media Queries for Mobile Devices */
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column; /* تحويل العناصر لتكون تحت بعضها */
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .hero-content {
+    margin-right: 0;
+    margin-bottom: 50px;
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem; /* تصغير العنوان */
+  }
+
+  .hero-btns {
+    justify-content: center; /* توسيط الأزرار */
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .stat-item strong {
+    font-size: 1.5rem;
+  }
+
+  /* تنسيق الصورة والبطاقات على الجوال */
+  .hero-visual {
+    padding: 20px 0;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .hero-image-container {
+    height: 350px; /* تقليل ارتفاع الحاوية */
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .floating-card {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    /* إلغاء القيم السالبة التي تسبب خروج البطاقة عن الشاشة */
+    right: 5% !important; 
+    left: auto !important;
+  }
+
+  .card-1 {
+    top: 5%;
+    right: 2% !important;
+  }
+
+  .card-2 {
+    bottom: 5%;
+    left: 2% !important;
+    right: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .primary-btn, .secondary-btn {
+    width: 100%; /* الأزرار تأخذ العرض كامل في الشاشات الصغيرة جداً */
+    padding: 14px 20px;
+  }
+
+  .hero-stats {
+    flex-direction: row;
+    font-size: 0.9rem;
+  }
+  
+  .stat-line {
+    height: 30px;
+  }
+}
+
 
 
 @keyframes float {

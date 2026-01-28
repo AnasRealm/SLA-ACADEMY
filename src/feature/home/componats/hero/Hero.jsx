@@ -19,7 +19,7 @@ const Hero = () => {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       />
 
-      <section id="home" className="hero-section">
+      <section className="hero-section">
         <div className="hero-container">
           <div className="hero-content">
             <div className="badge">مستقبلك يبدأ من هنا</div>
