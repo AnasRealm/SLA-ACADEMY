@@ -123,7 +123,7 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
           </div>
 
           <button type="button" className="google-btn">
-            <img src="/public/imges/Icon-Google.png" alt="Google" className="google-icon" />
+            <img src="/imges/Icon-Google.png" alt="Google" className="google-icon" />
             التسجيل باستخدام Google
           </button>
         </form>

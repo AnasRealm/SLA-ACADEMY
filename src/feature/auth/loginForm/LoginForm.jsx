@@ -66,7 +66,7 @@ const LoginForm = ({ onClose, onSwitchToSignup }) => {
           </div>
 
           <button type="button" className="google-btn">
-            <img src="/public/imges/Icon-Google.png" alt="Google" className="google-icon" />
+            <img src="/imges/Icon-Google.png" alt="Google" className="google-icon" />
             تسجيل الدخول باستخدام Google
           </button>
         </form>
