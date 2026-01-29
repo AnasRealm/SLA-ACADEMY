@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Logo Section */}
           <div className="footer-logo">
             <img src="/imges/logo.png" alt="SL Academy Logo" />
-            <p>أكاديمية متخصصة في التعليم التقني والبرمجة كاديمية متخصصة في التعليم التقني والبرمج كاديمية متخصصة في التعليم التقني والبرمج</p>
+            <p>أكاديمية متخصصة في التعليم التقني والبرمجة  متخصصة في التطوير التقني</p>
             
             {/* Social Media */}
             <div className="social-media">

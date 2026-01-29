@@ -200,4 +200,8 @@
   .container {
     padding: 0 16px;
   }
+  .section-header .most-popular-title{
+    font-size: 36px;
+    margin-right: 10px;
+  }
 }
