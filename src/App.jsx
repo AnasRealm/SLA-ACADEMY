@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './feature/home/pages/Home'
 import ProfilePage from './feature/profile/Profile'
 import Contact from './feature/contact/Contact'
+import CourseDetails from './feature/course/pages/CourseDetails'
 import ScrollToTop from './sheard/components/ScrollToTop'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/course/:id" element={<CourseDetails />} />
       </Routes>
     </Router>
   )

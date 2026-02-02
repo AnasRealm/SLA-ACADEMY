@@ -1,0 +1,208 @@
+:root {
+  --brand-blue: #2563eb;
+  --dark-slate: #1e293b;
+  --text-gray: #64748b;
+  --soft-blue: #eff6ff;
+}
+
+.course-premium-wrapper {
+  direction: rtl;
+  padding: 120px 0;
+  background: radial-gradient(circle at top right, #f8fafc, #ffffff);
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* العنوان والشرح */
+.badge-new {
+  display: inline-block;
+  background: var(--soft-blue);
+  color: var(--brand-blue);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.course-main-title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--dark-slate);
+  line-height: 1.1;
+  margin-bottom: 25px;
+  letter-spacing: -1px;
+}
+
+.course-lead-text {
+  font-size: 1.3rem;
+  color: var(--text-gray);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+/* صف المدرب والتقييم */
+.meta-info-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.meta-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.avatar-mini {
+  width: 28px;
+  height: 28px;
+  background: var(--brand-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.rating-bg {
+  border-color: #fef08a;
+  background: #fefce8;
+}
+
+/* السعر والزر */
+.action-footer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+
+.amount {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--dark-slate);
+}
+
+.primary-cta-btn {
+  background: linear-gradient(135deg, #2C5282 0%, #3182CE 100%);
+  color: white;
+  border: none;
+  padding: 20px 45px;
+  border-radius: 16px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.primary-cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 30px rgba(37, 99, 235, 0.2);
+}
+
+.trust-badges {
+  margin-top: 25px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 10px;
+}
+
+/* الصورة والديكور */
+.image-decorator {
+  position: relative;
+  z-index: 1;
+}
+
+.image-holder {
+  position: relative;
+  z-index: 2;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+
+}
+
+.image-holder img {
+  width: 100%;
+  height: 415px;
+  object-fit: cover;
+}
+
+.blob-1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: #dbeafe;
+  filter: blur(80px);
+  top: -50px;
+  right: -50px;
+  z-index: -1;
+}
+
+.blob-2 {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: #fef9c3;
+  filter: blur(60px);
+  bottom: -40px;
+  left: -40px;
+  z-index: -1;
+}
+
+/* الموبايل */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 60px;
+  }
+  
+  .course-lead-text {
+    margin: 0 auto 40px;
+  }
+  
+  .meta-info-row, .action-footer {
+    justify-content: center;
+  }
+  
+  .course-main-title {
+    font-size: 3rem;
+  }
+  
+  .image-holder {
+    transform: rotate(0deg);
+  }
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./MostPopular.css";
 
 const MostPopular = () => {
@@ -39,7 +40,7 @@ const MostPopular = () => {
 
         <div className="courses-grid">
           {courses.map(course => (
-            <div key={course.id} className="course-card">
+            <Link key={course.id} to={`/course/${course.id}`} className="course-card">
               <div className="course-image">
                 <img src={course.image} alt={course.title} />
               </div>
@@ -49,7 +50,7 @@ const MostPopular = () => {
                   <span>{course.videoCount} فيديو</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

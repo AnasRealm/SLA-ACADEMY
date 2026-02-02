@@ -1,6 +1,6 @@
 .footer {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #1A2B3C;
+  color: #2D3748;
   padding: 60px 0 20px;
   direction: rtl;
   position: relative;
@@ -49,12 +49,12 @@
 .footer-logo h3 {
   font-size: 2rem;
   font-weight: 800;
-  color: #1A2B3C;
+  color: #2C5282;
   margin: 0;
 }
 
 .footer-logo p {
-  color: #555;
+  color: #4A5568;
   line-height: 1.6;
   font-size: 1rem;
     margin-right: 30px;
@@ -71,7 +71,7 @@
 .footer-section h4 {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #1A2B3C;
+  color: #2C5282;
   margin-bottom: 25px;
   position: relative;
   padding-bottom: 10px;
@@ -84,7 +84,7 @@
   right: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(135deg, #C5A059 0%, #d4af37 100%);
+  background: linear-gradient(135deg, #D69E2E 0%, #F6AD55 100%);
   border-radius: 2px;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .footer-section ul li a {
-  color: #555;
+  color: #4A5568;
   text-decoration: none;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -112,7 +112,7 @@
   content: '◀';
   position: absolute;
   right: 0;
-  color: #C5A059;
+  color: #D69E2E;
   font-size: 0.8rem;
   opacity: 0;
   transform: translateX(-10px);
@@ -120,7 +120,7 @@
 }
 
 .footer-section ul li a:hover {
-  color: #C5A059;
+  color: #D69E2E;
   transform: translateX(10px);
 }
 
@@ -130,7 +130,7 @@
 }
 
 .contact-info p {
-  color: #555;
+  color: #4A5568;
   margin-bottom: 15px;
   font-size: 1rem;
   display: flex;
@@ -140,7 +140,7 @@
 }
 
 .contact-info p:hover {
-  color: #C5A059;
+  color: #D69E2E;
 }
 
 .footer-bottom {
@@ -195,43 +195,43 @@
 }
 
 .facebook {
-  background: linear-gradient(135deg, #C5A059, #d4af37);
+  background: linear-gradient(135deg, #D69E2E, #F6AD55);
   color: white;
 }
 
 .facebook::before {
-  background: linear-gradient(135deg, #d4af37, #C5A059);
+  background: linear-gradient(135deg, #F6AD55, #D69E2E);
 }
 
 .instagram {
-  background: linear-gradient(135deg, #C5A059, #b8941f);
+  background: linear-gradient(135deg, #D69E2E, #ED8936);
   color: white;
 }
 
 .instagram::before {
-  background: linear-gradient(135deg, #b8941f, #C5A059);
+  background: linear-gradient(135deg, #ED8936, #D69E2E);
 }
 
 .twitter {
-  background: linear-gradient(135deg, #C5A059, #d4af37);
+  background: linear-gradient(135deg, #D69E2E, #F6AD55);
   color: white;
 }
 
 .twitter::before {
-  background: linear-gradient(135deg, #d4af37, #C5A059);
+  background: linear-gradient(135deg, #F6AD55, #D69E2E);
 }
 
 .linkedin {
-  background: linear-gradient(135deg, #C5A059, #b8941f);
+  background: linear-gradient(135deg, #D69E2E, #ED8936);
   color: white;
 }
 
 .linkedin::before {
-  background: linear-gradient(135deg, #b8941f, #C5A059);
+  background: linear-gradient(135deg, #ED8936, #D69E2E);
 }
 
 .copyright {
-  color: #555;
+  color: #4A5568;
   font-size: 0.95rem;
 }
 

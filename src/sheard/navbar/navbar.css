@@ -1,7 +1,7 @@
 /* إعدادات المتغيرات للألوان */
 :root {
-  --primary-color: #1A2B3C;
-  --accent-color: #C5A059;
+  --primary-color: #2C5282;
+  --accent-color: #D69E2E;
   --white: #ffffff;
   --nav-height: 80px;
 }
@@ -61,7 +61,7 @@
 }
 
 .nav-menu-desktop li {
-  color: var(--primary-color);
+  color: #2D3748;
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
@@ -70,7 +70,7 @@
 }
 
 .nav-menu-desktop li:hover {
-  color: var(--accent-color);
+  color: #D69E2E;
 }
 
 /* تأثير الخط تحت الرابط عند الهوفر */
@@ -81,7 +81,7 @@
   height: 2px;
   bottom: -5px;
   right: 0;
-  background-color: var(--accent-color);
+  background-color: #D69E2E;
   transition: width 0.3s;
 }
 
@@ -98,8 +98,8 @@
 
 .icon-btn {
   background: transparent;
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
+  border: 1px solid #2D3748;
+  color: #2D3748;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -111,12 +111,12 @@
 }
 
 .icon-btn:hover {
-  background: var(--primary-color);
+  background: #2C5282;
   color: var(--white);
 }
 
 .login-btn-desktop {
-  background: var(--primary-color);
+  background: #2C5282;
   color: var(--white);
   border: none;
   padding: 10px 25px;
@@ -127,7 +127,7 @@
 }
 
 .login-btn-desktop:hover {
-  background: var(--accent-color);
+  background: #D69E2E;
   transform: translateY(-2px);
 }
 
@@ -135,7 +135,7 @@
 .hamburger-icon {
   display: none;
   font-size: 24px;
-  color: var(--primary-color);
+  color: #2D3748;
   cursor: pointer;
 }
 
@@ -219,7 +219,7 @@
 
 .close-sidebar {
   font-size: 24px;
-  color: var(--primary-color);
+  color: #2D3748;
   cursor: pointer;
 }
 
@@ -235,13 +235,13 @@
 .mobile-menu-links li {
   font-size: 18px;
   font-weight: 600;
-  color: var(--primary-color);
+  color: #2D3748;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .mobile-menu-links li:hover {
-  color: var(--accent-color);
+  color: #D69E2E;
   padding-right: 10px; /* حركة بسيطة لليسار */
 }
 
@@ -253,7 +253,7 @@
 .mobile-login-btn {
   width: 100%;
   padding: 12px;
-  background: var(--primary-color);
+  background: #2C5282;
   color: white;
   border: none;
   border-radius: 8px;
