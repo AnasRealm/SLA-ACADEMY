@@ -9,21 +9,21 @@ const Specializations = () => {
       title: "تطوير تطبيقات الويب الكاملة",
       instructor: "د. أحمد سالم",
       description: "تعلم بناء مواقع احترافية من الصفر باستخدام أحدث التقنيات العالمية.",
-      image: "/public/imges/porgraming.webp" // استبدلها بصورك
+      image: "/imges/porgraming.webp" // استبدلها بصورك
     },
     {
       id: 2,
       title: "التصميم الجرافيكي والبراندينج",
       instructor: "م. سارة علي",
       description: "اتقن فنون التصميم البصري وبناء الهوية التجارية للشركات الكبرى.",
-      image: "/public/imges/desin.png"
+      image: "/imges/desin.png"
     },
     {
       id: 3,
       title: "علوم البيانات والذكاء الاصطناعي",
       instructor: "م. خالد منصور",
       description: "استكشف عالم البيانات الضخمة وكيفية بناء نماذج ذكاء اصطناعي متطورة.",
-      image: "/public/imges/english.png"
+      image: "/imges/english.png"
     }
   ];
 
