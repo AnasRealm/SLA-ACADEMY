@@ -1,0 +1,152 @@
+/* الألوان الأساسية بناءً على تصميمك */
+:root {
+  --primary-blue: #1e3a8a; /* الكحلي */
+  --accent-gold: #c29d5b; /* الذهبي */
+  --text-gray: #64748b;
+  --bg-light: #f8fafc;
+}
+
+.spec-section {
+  padding: 80px 20px;
+  background-color: var(--bg-light);
+  direction: rtl; /* لضمان الاتجاه العربي */
+  font-family: 'Cairo', sans-serif; /* أو الخط المستخدم بموقعك */
+}
+
+.spec-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* الترويسة */
+.spec-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.spec-subtitle {
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.spec-title {
+  color: var(--primary-blue);
+  font-size: 2.5rem;
+  margin-top: 10px;
+}
+
+.spec-underline {
+  width: 80px;
+  height: 4px;
+  background: var(--accent-gold);
+  margin: 15px auto;
+  border-radius: 2px;
+}
+
+/* التصميم الخاص بالكروت */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 70px;
+}
+
+.spec-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.spec-card:hover {
+  transform: translateY(-10px);
+}
+
+.spec-card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.spec-card-content {
+  padding: 25px;
+}
+
+.course-name {
+  color: var(--primary-blue);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.instructor-name {
+  font-size: 0.95rem;
+  color: var(--text-gray);
+  margin-bottom: 15px;
+}
+
+.instructor-name span {
+  color: var(--accent-gold);
+  font-weight: bold;
+}
+
+.course-desc {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* قسم التواصل */
+.spec-contact-box {
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.spec-contact-box h3 {
+  color: var(--primary-blue);
+  margin-bottom: 10px;
+}
+
+.spec-contact-box p {
+  color: var(--text-gray);
+  margin-bottom: 25px;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.fb {
+  background-color: #1877f2;
+  color: white;
+}
+
+.wa {
+  background-color: #25d366;
+  color: white;
+}
+
+.contact-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}

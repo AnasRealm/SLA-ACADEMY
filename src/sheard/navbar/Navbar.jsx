@@ -63,8 +63,8 @@ const Navbar = () => {
           {/* 2. روابط الديسكتوب (وسط الشاشة - تختفي بالموبايل) */}
           <ul className="nav-menu-desktop">
             <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
-            <li onClick={() => handleLinkClick('courses')}>الدورات</li>
-            <li onClick={() => handleLinkClick('categories')}>التخصصات</li>
+            <li onClick={() => handleLinkClick('categories')}>الدورات</li>
+            <li onClick={() => navigate('/Specializations')}>التخصصات</li>
             <li onClick={() => handleLinkClick('about')}>من نحن</li>
             <li onClick={() => navigate('/contact')}>تواصل معنا</li>
           </ul>
@@ -95,8 +95,8 @@ const Navbar = () => {
         
         <ul className="mobile-menu-links">
           <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
-          <li onClick={() => handleLinkClick('courses')}>الدورات</li>
-          <li onClick={() => handleLinkClick('categories')}>التخصصات</li>
+          <li onClick={() => handleLinkClick('categories')}>الدورات</li>
+          <li onClick={() => navigate('/Specializations')}>التخصصات</li>
           <li onClick={() => handleLinkClick('about')}>من نحن</li>
           <li onClick={() => navigate('/contact')}>تواصل معنا</li>
         </ul>
