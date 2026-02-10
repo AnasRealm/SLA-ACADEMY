@@ -1,0 +1,595 @@
+:root {
+  /* تحديث الألوان لتطابق الصورة المستهدفة */
+  --auth-navy: #14233c; /* لون كحلي داكن */
+  --auth-gold: #c19a5b; /* لون ذهبي مطابق للشعار والأزرار */
+  --auth-bg: #f5f7f9;   /* لون خلفية الصفحة الفاتح */
+  --text-dark: #333;
+  --text-light: #e0e0e0;
+}
+
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Cairo', sans-serif;
+  background-color: var(--auth-bg);
+  /* اتجاه اليمين لليسار يجعل العنصر الأول في الـ DOM (القسم الأزرق) يظهر على اليمين */
+  direction: rtl; 
+  justify-content: center;
+  align-items: center;
+}
+
+/* حاوية الكارد الرئيسية - لإعطاء الحواف الدائرية والظل */
+.auth-card-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    min-height: 700px; /* ارتفاع أدنى لضمان تناسق التصميم */
+}
+
+
+/* ================= القسم الأيمن (الأزرق) - المعلومات والشعار ================= */
+.auth-info-section {
+  flex: 1;
+  /* استخدام لون صلب بدلاً من التدرج */
+  background-color: var(--auth-navy);
+  /* إضافة نمط شبكة خفيف كخلفية (اختياري - يمكن إزالته إذا لم يكن مطلوباً بدقة) */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* توزيع المحتوى بين الأعلى والأسفل */
+  color: white;
+  padding: 60px 100px;
+  position: relative;
+}
+
+/* إزالة الزخرفة القديمة */
+.auth-info-section::before {
+    display: none;
+}
+
+.auth-logo-container {
+  
+}
+
+.auth-logo-img {
+  width: 140px; /* حجم مناسب للشعار الذهبي */
+  height: auto;
+  display: block;
+ 
+}
+
+.auth-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  line-height: 1.3;
+  color: white;
+}
+
+.auth-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 500px;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+
+/* قسم المميزات في الأسفل */
+.auth-features {
+    /* margin-top: auto; is removed. This is the bottom div. */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.feature-icon {
+    background-color: rgba(193, 154, 91, 0.2); /* خلفية ذهبية شفافة للأيقونة */
+    color: var(--auth-gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.feature-text h4 {
+    color: var(--auth-gold);
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+}
+
+.feature-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color:  #635555;
+}
+
+.auth-copyright {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    text-align: left; /* الحقوق على اليسار كما في الصورة */
+    direction: ltr;
+}
+
+
+/* ================= القسم الأيسر - الفورم ================= */
+.auth-form-section {
+  flex: 1.2; /* إعطاء مساحة أكبر قليلاً للفورم */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 50px;
+  background-color: white;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 480px;
+}
+
+.form-header {
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.form-header h2 {
+  color: var(--auth-navy);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.form-header p {
+  color: #718096;
+  font-size: 1rem;
+}
+
+.form-header a {
+    color: var(--auth-gold);
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* الحقول */
+.input-group {
+  margin-bottom: 20px;
+  position: relative; /* من أجل وضع الأيقونات داخل الحقل */
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.input-field {
+ width: 100%;
+    padding: 10px 10px;
+    border: 1px solid #e2e8f0;
+    background-color: #fcfcfc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+/* تنسيق الحقول التي تحتوي على أيقونات */
+.input-with-icon {
+    padding-left: 45px; /* مساحة للأيقونة على اليسار */
+}
+
+.field-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 1.1rem;
+}
+
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--auth-gold);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(193, 154, 91, 0.1);
+}
+
+.input-field::placeholder {
+
+    color: #cbd5e0;
+
+}
+
+
+
+/* صف مزدوج */
+
+.form-row-double {
+
+  display: flex;
+
+  gap: 15px;
+
+}
+
+
+
+.form-row-double .input-group {
+
+  flex: 1;
+
+}
+
+
+
+/* حاوية الحقل (للسماح بتموضع الأيقونة) */
+
+.input-wrapper {
+
+  position: relative;
+
+}
+
+
+
+/* زر الإرسال الذهبي */
+
+.submit-btn {
+
+  width: 100%;
+
+  padding: 16px;
+
+  /* لون ذهبي متدرج */
+
+  background: linear-gradient(to left, #c19a5b, #d4af72);
+
+  color: white;
+
+  border: none;
+
+  border-radius: 4px;
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  margin-top: 15px;
+
+}
+
+
+
+.submit-btn:hover {
+
+    background: linear-gradient(to left, #b38f52, #c19a5b);
+
+}
+
+
+
+/* زر جوجل */
+
+.google-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: white;
+
+    color: var(--text-dark);
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 4px;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    margin-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+}
+
+
+
+.google-btn:hover {
+
+    background-color: #f7fafc;
+
+    border-color: #cbd5e0;
+
+}
+
+
+
+.google-icon {
+
+    width: 24px;
+
+    height: 24px;
+
+}
+
+
+
+.error-message {
+
+  background-color: #fff5f5;
+
+  color: #c53030;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  margin-bottom: 20px;
+
+  font-size: 0.9rem;
+
+  border-right: 4px solid #c53030;
+
+  text-align: center;
+
+}
+
+
+
+/* ================= Responsive Design ================= */
+
+
+
+/* Medium Desktops & Tablets */
+
+@media (max-width: 1200px) {
+
+    .auth-info-section {
+
+        padding: 50px 70px;
+
+    }
+
+
+
+    .auth-title {
+
+        font-size: 2.4rem;
+
+    }
+
+
+
+    .auth-subtitle {
+
+        font-size: 1rem;
+
+    }
+
+}
+
+
+
+
+
+/* Tablets & Small Desktops */
+
+@media (max-width: 992px) {
+
+  .auth-container {
+
+      padding: 0;
+
+      align-items: flex-start;
+
+      min-height: 100vh; /* Ensure it takes full height */
+
+  }
+
+  
+
+  .auth-card-wrapper {
+
+    flex-direction: column;
+
+    border-radius: 0;
+
+    width: 100%;
+
+    min-height: 100vh; /* Ensure the wrapper also takes full height */
+
+    height: auto; /* Allow height to be determined by content */
+
+    box-shadow: none;
+
+  }
+
+  
+
+  .auth-info-section {
+
+    flex: 0 0 auto; /* Don't grow, don't shrink, base on auto height */
+
+    padding: 40px 30px;
+
+    text-align: center;
+
+    align-items: center;
+
+    justify-content: center; /* Center content vertically */
+
+    min-height: auto;
+
+  }
+
+  
+
+  .auth-text-container {
+
+      margin-bottom: 30px; /* Add some space before features if they are shown */
+
+  }
+
+
+
+  .auth-logo-img {
+
+      margin: 0 auto 20px auto;
+
+      width: 100px;
+
+  }
+
+
+
+  .auth-title { 
+
+      font-size: 1.6rem;
+
+      text-align: center;
+
+      margin-bottom: 15px;
+
+  }
+
+
+
+  .auth-subtitle {
+
+      text-align: center;
+
+      font-size: 0.95rem;
+
+      max-width: 90%;
+
+      margin: 0 auto;
+
+  }
+
+  
+
+  /* Hide features on mobile for simplicity */
+
+  .auth-features {
+
+      display: none;
+
+  }
+
+  
+
+  .auth-form-section {
+
+    flex: 1 1 auto; /* Allow form to grow and fill available space */
+
+    width: 100%;
+
+    padding: 50px 25px 30px 25px; /* Adjust padding */
+
+    border-radius: 0;
+
+    margin-top: 0;
+
+    z-index: 10;
+
+  }
+
+
+
+  .form-header {
+
+      text-align: center;
+
+  }
+
+  
+
+  .input-label, .input-field {
+
+      text-align: right;
+
+  }
+
+  
+
+  /* Stack the two-column layout on mobile */
+
+  .form-row-double {
+
+      flex-direction: column;
+
+      gap: 0; /* Remove gap when stacked */
+
+  }
+
+}
+
+
+
+/* Small Mobiles */
+
+@media (max-width: 480px) {
+
+    .auth-info-section {
+
+        padding: 30px 20px;
+
+    }
+
+
+
+    .auth-form-section {
+
+        padding: 40px 20px 30px 20px;
+
+    }
+
+
+
+    .auth-title {
+
+        font-size: 1.4rem;
+
+    }
+
+
+
+    .form-header h2 {
+
+        font-size: 1.7rem;
+
+    }
+
+}

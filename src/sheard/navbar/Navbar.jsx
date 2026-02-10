@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import LoginForm from '../../feature/auth/loginForm/LoginForm';
-import Signup from '../../feature/auth/signupForm/Signup';
+import { useNavigate, Link } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // التعامل مع التمرير لتغيير لون الناف بار
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(!!user);
+  }, []);
+
+  // Handle scroll to change navbar color
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -20,31 +22,31 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // دالة للتعامل مع أيقونة المستخدم
   const handleUserClick = () => {
-    const isLoggedIn = localStorage.getItem('user') || sessionStorage.getItem('user');
-    
     if (isLoggedIn) {
       navigate('/profile');
     } else {
-      setShowLoginModal(true);
+      navigate('/login');
     }
   };
+  
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setIsLoggedIn(false);
+    navigate('/');
+  }
 
-  // دالة لإغلاق القائمة عند الضغط على رابط
   const handleLinkClick = (id) => {
     setIsMobileMenuOpen(false);
-    
-    // إذا كنا في صفحة أخرى، انتقل للهوم أولاً
     if (window.location.pathname !== '/') {
       navigate('/');
-      // انتظار قليل للانتقال ثم التمرير
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
-      // إذا كنا في الهوم، تمرير مباشر
       const element = document.getElementById(id);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -55,28 +57,32 @@ const Navbar = () => {
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
           
-          {/* 1. اللوجو (يمين الشاشة) */}
           <div className="navbar-logo" onClick={() => navigate('/')}>
             <img src="/imges/logo.png" alt="SL Academy" />
           </div>
 
-          {/* 2. روابط الديسكتوب (وسط الشاشة - تختفي بالموبايل) */}
           <ul className="nav-menu-desktop">
             <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
             <li onClick={() => handleLinkClick('categories')}>الدورات</li>
-            <li onClick={() => navigate('/Specializations')}>التخصصات</li>
+            <li onClick={() => navigate('/specializations')}>التخصصات</li>
             <li onClick={() => handleLinkClick('about')}>من نحن</li>
             <li onClick={() => navigate('/contact')}>تواصل معنا</li>
           </ul>
 
-          {/* 3. الأزرار وأيقونة المستخدم (يسار الشاشة) */}
           <div className="nav-actions">
             <button className="icon-btn" title="الملف الشخصي" onClick={handleUserClick}>
               <i className="fas fa-user"></i>
             </button>
-            <button className="login-btn-desktop" onClick={() => setShowLoginModal(true)}>تسجيل الدخول</button>
             
-            {/* زر الهامبرغر (يظهر فقط بالموبايل) */}
+            {isLoggedIn ? (
+              <button className="login-btn-desktop" onClick={handleLogout}>تسجيل الخروج</button>
+            ) : (
+              <>
+                <Link to="/login" className="login-btn-desktop">تسجيل الدخول</Link>
+                {/* <Link to="/signup" className="signup-btn-desktop">إنشاء حساب</Link> */}
+              </>
+            )}
+
             <div className="hamburger-icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               <i className={isMobileMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
             </div>
@@ -84,7 +90,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* 4. قائمة الموبايل الجانبية (Sidebar) */}
       <div className={`mobile-sidebar-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
       
       <div className={`mobile-sidebar ${isMobileMenuOpen ? 'active' : ''}`}>
@@ -96,37 +101,22 @@ const Navbar = () => {
         <ul className="mobile-menu-links">
           <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
           <li onClick={() => handleLinkClick('categories')}>الدورات</li>
-          <li onClick={() => navigate('/Specializations')}>التخصصات</li>
+          <li onClick={() => navigate('/specializations')}>التخصصات</li>
           <li onClick={() => handleLinkClick('about')}>من نحن</li>
           <li onClick={() => navigate('/contact')}>تواصل معنا</li>
         </ul>
 
         <div className="mobile-sidebar-footer">
-          <button className="mobile-login-btn" onClick={() => setShowLoginModal(true)}>تسجيل الدخول</button>
+          {isLoggedIn ? (
+             <button className="mobile-login-btn" onClick={handleLogout}>تسجيل الخروج</button>
+          ) : (
+            <>
+              <Link to="/login" className="mobile-login-btn" onClick={() => setIsMobileMenuOpen(false)}>تسجيل الدخول</Link>
+              <Link to="/signup" className="mobile-signup-btn" onClick={() => setIsMobileMenuOpen(false)}>إنشاء حساب</Link>
+            </>
+          )}
         </div>
       </div>
-
-      {/* Login Modal */}
-      {showLoginModal && (
-        <LoginForm 
-          onClose={() => setShowLoginModal(false)}
-          onSwitchToSignup={() => {
-            setShowLoginModal(false);
-            setShowSignupModal(true);
-          }}
-        />
-      )}
-
-      {/* Signup Modal */}
-      {showSignupModal && (
-        <Signup 
-          onClose={() => setShowSignupModal(false)}
-          onSwitchToLogin={() => {
-            setShowSignupModal(false);
-            setShowLoginModal(true);
-          }}
-        />
-      )}
     </>
   );
 };
