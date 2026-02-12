@@ -8,6 +8,8 @@ import ScrollToTop from "./sheard/components/ScrollToTop";
 import Specializations from "./feature/Specializations/pages/specializations";
 import LoginPage from "./feature/auth/pages/LoginPage";
 import SignupPage from "./feature/auth/pages/SignupPage";
+import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
+import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
         <Route path="/specializations" element={<Specializations />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/password/reset" element={<ResetPasswordPage />} />
+        
       </Routes>
     </Router>
   );
