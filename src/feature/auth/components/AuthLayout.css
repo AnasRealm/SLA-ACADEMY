@@ -112,7 +112,7 @@
 .feature-text p {
     margin: 0;
     font-size: 0.9rem;
-    color:  #635555;
+    color:  #fff;
 }
 
 .auth-copyright {
@@ -151,8 +151,10 @@
 }
 
 .form-header p {
-  color: #718096;
-  font-size: 1rem;
+    color: #718096;
+    font-size: 1rem;
+    margin: 20px auto;
+    text-align: center;
 }
 
 .form-header a {
@@ -364,6 +366,44 @@
 
   text-align: center;
 
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.form-footer p {
+  color: #718096;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.form-footer a {
+    color: var(--auth-gold);
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.forgot-password-link {
+  text-align: right;
+  margin-bottom: 15px;
+  margin-top: -10px;
+  font-size: 0.9rem;
+  color: var(--auth-gold);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
 }
 
 

@@ -1,74 +1,149 @@
-import React, { useState } from 'react';
-import { Camera, BookOpen, User, Mail, Phone, Edit2 } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Camera, User, Mail, Phone, Lock, LogOut } from 'lucide-react';
 import MainLayout from '../../sheard/layout/MainLayout';
+import { logoutUser } from '../auth/services/authService';
 import './Profile.css';
 
 const ProfilePage = () => {
-  // بيانات افتراضية (سيتم جلبها لاحقاً من الباك إند)
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
   const [userData, setUserData] = useState({
     name: "أحمد محمد علي",
     email: "ahmed.user@slacademy.ae",
     phone: "+971 50 123 4567",
-    profilePic: "https://via.placeholder.com/150", // الصورة الافتراضية
-    courses: [
-      { id: 1, title: "دورة التصميم الجرافيكي الشاملة", progress: 75 },
-      { id: 2, title: "أساسيات البرمجة بلغة جافا سكريبت", progress: 40 },
-      { id: 3, title: "إدارة الأعمال والمشاريع الصغيرة", progress: 100 }
-    ]
+    profilePic: "/imges/user-icon-profile.jpg", //  <- تم تغيير الصورة هنا
   });
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleChangePasswordSubmit = (e) => {
+    e.preventDefault();
+    console.log("Password change submitted:", passwordData);
+    alert("تم تقديم طلب تغيير كلمة السر بنجاح (محاكاة)");
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      localStorage.removeItem('accessToken');
+      navigate('/login');
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUserData(prev => ({ ...prev, profilePic: event.target.result }));
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const handleEditPicClick = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <MainLayout>
-      <div className="profile-container">
-        {/* Header Section */}
-        <header className="profile-header">
-          <div className="profile-card">
-            <div className="avatar-wrapper">
-              <img src={userData.profilePic} alt="Profile" className="profile-img" />
-              <button className="edit-pic-btn" title="تعديل الصورة">
-                <Edit2 size={16} />
-              </button>
-            </div>
-            <h1 className="user-name">{userData.name}</h1>
-            <p className="user-role">طالب في SL Academy</p>
-          </div>
-        </header>
-
-        <main className="profile-content">
-          {/* Information Section */}
-          <section className="info-section">
-            <h2 className="section-title"><User size={20} /> المعلومات الشخصية</h2>
-            <div className="info-grid">
-              <div className="info-item">
-                <label><Mail size={16} /> البريد الإلكتروني</label>
-                <span>{userData.email}</span>
+      <div className="profile-container-new">
+        <main className="profile-content-new">
+          <section className="profile-section">
+            <h3 className="section-title-new"><User /> المعلومات الشخصية</h3>
+            <div className="personal-info-card">
+              <div className="avatar-wrapper-new">
+                <img src={userData.profilePic} alt="الصورة الشخصية" className="profile-img-new" />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                />
+                <button className="edit-pic-btn-new" title="تغيير الصورة" onClick={handleEditPicClick}>
+                  <Camera size={18} />
+                </button>
               </div>
-              <div className="info-item">
-                <label><Phone size={16} /> رقم التواصل</label>
-                <span>{userData.phone}</span>
+              <div className="info-fields">
+                <div className="info-field">
+                  <label htmlFor="name">الاسم</label>
+                  <div className="input-readonly">{userData.name}</div>
+                </div>
+                <div className="info-field">
+                  <label htmlFor="email">البريد الإلكتروني</label>
+                  <div className="input-readonly">{userData.email}</div>
+                </div>
+                <div className="info-field">
+                  <label htmlFor="phone">رقم الهاتف</label>
+                  <div className="input-readonly">{userData.phone}</div>
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Courses Section */}
-          <section className="courses-section">
-            <h2 className="section-title"><BookOpen size={20} /> الكورسات المسجلة</h2>
-            <div className="courses-list">
-              {userData.courses.map(course => (
-                <div key={course.id} className="course-card">
-                  <div className="course-info">
-                    <h3>{course.title}</h3>
-                    <span className="progress-text">{course.progress}% مكتمل</span>
-                  </div>
-                  <div className="progress-bar-bg">
-                    <div 
-                      className="progress-bar-fill" 
-                      style={{ width: `${course.progress}%` }}
-                    ></div>
-                  </div>
+          {/* Change Password Section */}
+          <section className="profile-section">
+            <h3 className="section-title-new"><Lock /> تغيير كلمة السر</h3>
+            <form className="password-form" onSubmit={handleChangePasswordSubmit}>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label htmlFor="currentPassword">كلمة السر الحالية</label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    name="currentPassword"
+                    value={passwordData.currentPassword}
+                    onChange={handlePasswordChange}
+                    required
+                  />
                 </div>
-              ))}
-            </div>
+                <div className="form-group">
+                  <label htmlFor="newPassword">كلمة السر الجديدة</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="confirmPassword">تأكيد كلمة السر الجديدة</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordChange}
+                    required
+                  />
+                </div>
+              </div>
+              <button type="submit" className="btn-submit-password">حفظ التغييرات</button>
+            </form>
+          </section>
+
+          {/* Logout Section */}
+          <section className="profile-section">
+            <h3 className="section-title-new"><LogOut /> تسجيل الخروج</h3>
+            <p>هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك؟</p>
+            <button onClick={handleLogout} className="btn-logout">
+              تسجيل الخروج
+            </button>
           </section>
         </main>
       </div>

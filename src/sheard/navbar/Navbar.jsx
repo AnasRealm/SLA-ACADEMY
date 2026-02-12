@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './navbar.css';
+import { useAuth } from '../../feature/auth/hooks/useAuth';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
     setIsLoggedIn(!!user);
+
+    const handleStorageChange = () => {
+        const user = localStorage.getItem('user');
+        setIsLoggedIn(!!user);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+        window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   // Handle scroll to change navbar color
@@ -31,11 +44,7 @@ const Navbar = () => {
   };
   
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    setIsLoggedIn(false);
-    navigate('/');
+    logout();
   }
 
   const handleLinkClick = (id) => {

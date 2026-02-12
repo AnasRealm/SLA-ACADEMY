@@ -35,7 +35,7 @@ const About = () => {
                 <div className="feature-icon-box">
                   <Target size={24} />
                 </div>
-                <div className="feature-text">
+                <div className="feature-text-about">
                   <h4>رؤية عالمية</h4>
                   <p>تأهيل الكوادر لسوق العمل بأحدث الأدوات التقنية.</p>
                 </div>
@@ -46,7 +46,7 @@ const About = () => {
                 <div className="feature-icon-box">
                   <Award size={24} />
                 </div>
-                <div className="feature-text">
+                <div className="feature-text-about">
                   <h4>جودة معتمدة</h4>
                   <p>مناهج تعليمية صممت لتواكب التطورات المتسارعة.</p>
                 </div>
