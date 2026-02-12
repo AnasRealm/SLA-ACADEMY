@@ -10,6 +10,7 @@ import LoginPage from "./feature/auth/pages/LoginPage";
 import SignupPage from "./feature/auth/pages/SignupPage";
 import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
 import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
+import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/password/reset" element={<ResetPasswordPage />} />
+        <Route path="/auth/google/redirect" element={<GoogleCallbackPage />} />
         
       </Routes>
     </Router>
