@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { getGoogleAuthUrl } from '../services/authService'; // استيراد الخدمة
 import ForgotPasswordModal from './ForgotPasswordModal';
 
 const LoginForm = () => {
@@ -18,24 +17,12 @@ const LoginForm = () => {
     login(credentials);
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const response = await getGoogleAuthUrl();
-      console.log("Google Auth Response:", response); // For debugging
-      // التوجيه لرابط جوجل الذي عاد من السيرفر
-      if (response?.url) {
-        window.location.href = response.url;
-      } else if (response?.data?.url) {
-         window.location.href = response.data.url;
-      }
-       else {
-        alert('لم يتم العثور على رابط جوجل في الاستجابة. افتح الـ Console لمزيد من التفاصيل.');
-      }
-    } catch (error) {
-      console.error("Google Auth Error", error);
-      alert('فشل في جلب رابط جوجل. تأكد من أن الباك-إند يعمل.');
-    }
-  };
+// داخل LoginForm.jsx
+
+const handleGoogleLogin = () => {
+
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/continue-with-google`;
+};
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
