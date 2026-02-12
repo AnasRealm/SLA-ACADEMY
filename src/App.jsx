@@ -29,10 +29,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        {/* 👇 (2) هذه هي المسارات الجديدة التي يجب إضافتها هنا 👇 */}
-        
-        {/* مسار تفعيل الإيميل (مع كلمة auth التي طلبتها) */}
-        <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
+   
+        {/* <Route path="/auth/verify-email" element={<VerifyEmailPage />} /> */}
 
         {/* مسار استعادة كلمة المرور */}
         <Route path="/password/reset" element={<ResetPasswordPage />} />

@@ -69,17 +69,10 @@ const SignupForm = () => {
     }
   }, [isRegisterError, registerError, setError]);
 
-  const handleGoogleLogin = async () => {
-    try {
-      const response = await getGoogleAuthUrl();
-      if (response?.data?.url || response?.url) {
-        window.location.href = response.data?.url || response.url;
-      }
-    } catch (error) {
-      console.error("Google Auth Error", error);
-      alert("فشل في جلب رابط جوجل. تأكد من أن الباك-إند يعمل.");
-    }
-  };
+const handleGoogleLogin = () => {
+    // توجيه المستخدم لرابط جوجل الصحيح الذي حصلت عليه
+    window.location.href = "https://api.slacademy.io/auth/google/redirect";
+};
 
   const onSubmit = (data) => {
     const apiData = {

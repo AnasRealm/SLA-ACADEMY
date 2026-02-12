@@ -17,11 +17,9 @@ const LoginForm = () => {
     login(credentials);
   };
 
-// داخل LoginForm.jsx
-
 const handleGoogleLogin = () => {
-
-    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/continue-with-google`;
+    // توجيه المستخدم لرابط جوجل الصحيح الذي حصلت عليه
+    window.location.href = "https://api.slacademy.io/auth/google/redirect";
 };
 
   const openModal = () => setIsModalOpen(true);
