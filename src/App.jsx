@@ -1,5 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// الصفحات الأساسية
 import Home from "./feature/home/pages/Home";
 import ProfilePage from "./feature/profile/Profile";
 import Contact from "./feature/contact/Contact";
@@ -9,7 +11,7 @@ import Specializations from "./feature/Specializations/pages/specializations";
 import LoginPage from "./feature/auth/pages/LoginPage";
 import SignupPage from "./feature/auth/pages/SignupPage";
 
-// --- استيراد الصفحات الجديدة (مهم جداً) ---
+// 👇 (1) هذه هي الاستيرادات الجديدة التي يجب إضافتها 👇
 import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
 import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
 import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage"; 
@@ -26,8 +28,16 @@ function App() {
         <Route path="/specializations" element={<Specializations />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/verify-email" element={<VerifyEmailPage />} />      
+
+        {/* 👇 (2) هذه هي المسارات الجديدة التي يجب إضافتها هنا 👇 */}
+        
+        {/* مسار تفعيل الإيميل (مع كلمة auth التي طلبتها) */}
+        <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
+
+        {/* مسار استعادة كلمة المرور */}
         <Route path="/password/reset" element={<ResetPasswordPage />} />
+
+        {/* مسار تسجيل الدخول بجوجل */}
         <Route path="/auth/google/redirect" element={<GoogleCallbackPage />} />
 
       </Routes>
