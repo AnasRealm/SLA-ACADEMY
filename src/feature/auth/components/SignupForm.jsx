@@ -1,35 +1,70 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { useAuth } from '../hooks/useAuth';
-import { getGoogleAuthUrl } from '../services/authService';
-import { FaRegUser, FaPhone, FaRegEnvelope, FaLock } from 'react-icons/fa';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useAuth } from "../hooks/useAuth";
+import { getGoogleAuthUrl } from "../services/authService";
+import { FaRegUser, FaPhone, FaRegEnvelope, FaLock } from "react-icons/fa";
 
 const schema = yup.object().shape({
-  firstName: yup.string().required('الاسم الأول مطلوب').min(3, 'الاسم الأول يجب أن يكون 3 أحرف على الأقل'),
-  lastName: yup.string().required('الاسم الثاني مطلوب').min(3, 'الاسم الثاني يجب أن يكون 3 أحرف على الأقل'),
-  phone: yup.string().required('رقم الهاتف مطلوب').matches(/^[0-9]+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط").min(10, 'رقم الهاتف يجب أن يكون 10 أرقام على الأقل'),
-  email: yup.string().required('البريد الإلكتروني مطلوب').email('صيغة البريد الإلكتروني غير صالحة'),
-  password: yup.string().required('كلمة المرور مطلوبة').min(8, 'كلمة المرور يجب أن تكون 8 أحرف على الأقل'),
-  confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'كلمات المرور غير متطابقة').required('تأكيد كلمة المرور مطلوب'),
+  firstName: yup
+    .string()
+    .required("الاسم الأول مطلوب")
+    .min(3, "الاسم الأول يجب أن يكون 3 أحرف على الأقل"),
+  lastName: yup
+    .string()
+    .required("الاسم الثاني مطلوب")
+    .min(3, "الاسم الثاني يجب أن يكون 3 أحرف على الأقل"),
+  phone: yup
+    .string()
+    .required("رقم الهاتف مطلوب")
+    .matches(/^[0-9]+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط")
+    .min(10, "رقم الهاتف يجب أن يكون 10 أرقام على الأقل"),
+  email: yup
+    .string()
+    .required("البريد الإلكتروني مطلوب")
+    .email("صيغة البريد الإلكتروني غير صالحة"),
+  password: yup
+    .string()
+    .required("كلمة المرور مطلوبة")
+    .min(8, "كلمة المرور يجب أن تكون 8 أحرف على الأقل"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "كلمات المرور غير متطابقة")
+    .required("تأكيد كلمة المرور مطلوب"),
 });
 
 const SignupForm = () => {
-  const { register: authRegister, isRegisterPending, isRegisterError, registerError } = useAuth();
-  const { register, handleSubmit, setError, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+  const {
+    register: authRegister,
+    isRegisterPending,
+    isRegisterError,
+    registerError,
+  } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {
     if (isRegisterError && registerError?.response?.data?.errors) {
       const apiErrors = registerError.response.data.errors;
       if (apiErrors.email) {
-        setError('email', { type: 'manual', message: 'البريد الإلكتروني مستخدم بالفعل' });
+        setError("email", {
+          type: "manual",
+          message: "البريد الإلكتروني مستخدم بالفعل",
+        });
       }
       if (apiErrors.phone) {
-        setError('phone', { type: 'manual', message: 'رقم الهاتف مستخدم بالفعل' });
+        setError("phone", {
+          type: "manual",
+          message: "رقم الهاتف مستخدم بالفعل",
+        });
       }
     }
   }, [isRegisterError, registerError, setError]);
@@ -42,6 +77,7 @@ const SignupForm = () => {
       }
     } catch (error) {
       console.error("Google Auth Error", error);
+      alert("فشل في جلب رابط جوجل. تأكد من أن الباك-إند يعمل.");
     }
   };
 
@@ -52,9 +88,9 @@ const SignupForm = () => {
       phone: data.phone,
       email: data.email,
       password: data.password,
-      password_confirmation: data.confirmPassword
+      password_confirmation: data.confirmPassword,
     };
-    
+
     authRegister(apiData);
   };
 
@@ -66,7 +102,7 @@ const SignupForm = () => {
 
       {isRegisterError && !errors.email && !errors.phone && (
         <div className="error-message">
-          {registerError?.message || 'فشل التسجيل، يرجى التحقق من البيانات'}
+          {registerError?.message || "فشل التسجيل، يرجى التحقق من البيانات"}
         </div>
       )}
 
@@ -75,69 +111,121 @@ const SignupForm = () => {
           <div className="input-group">
             <label className="input-label">الاسم الأول</label>
             <div className="input-wrapper">
-                <input type="text" {...register('firstName')} className={`input-field input-with-icon ${errors.firstName ? 'is-invalid' : ''}`} placeholder="محمد" />
-                <FaRegUser className="field-icon" />
+              <input
+                type="text"
+                {...register("firstName")}
+                className={`input-field input-with-icon ${errors.firstName ? "is-invalid" : ""}`}
+                placeholder="محمد"
+              />
+              <FaRegUser className="field-icon" />
             </div>
-            {errors.firstName && <p className="error-message">{errors.firstName.message}</p>}
+            {errors.firstName && (
+              <p className="error-message">{errors.firstName.message}</p>
+            )}
           </div>
           <div className="input-group">
             <label className="input-label">الاسم الثاني</label>
             <div className="input-wrapper">
-                <input type="text" {...register('lastName')} className={`input-field input-with-icon ${errors.lastName ? 'is-invalid' : ''}`} placeholder="شعبان" />
-                <FaRegUser className="field-icon" />
+              <input
+                type="text"
+                {...register("lastName")}
+                className={`input-field input-with-icon ${errors.lastName ? "is-invalid" : ""}`}
+                placeholder="شعبان"
+              />
+              <FaRegUser className="field-icon" />
             </div>
-            {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
+            {errors.lastName && (
+              <p className="error-message">{errors.lastName.message}</p>
+            )}
           </div>
         </div>
 
         <div className="input-group">
           <label className="input-label">رقم الهاتف</label>
           <div className="input-wrapper">
-            <input type="tel" {...register('phone')} className={`input-field input-with-icon ${errors.phone ? 'is-invalid' : ''}`} placeholder="+963..." />
+            <input
+              type="tel"
+              {...register("phone")}
+              className={`input-field input-with-icon ${errors.phone ? "is-invalid" : ""}`}
+              placeholder="+963..."
+            />
             <FaPhone className="field-icon" />
           </div>
-          {errors.phone && <p className="error-message">{errors.phone.message}</p>}
+          {errors.phone && (
+            <p className="error-message">{errors.phone.message}</p>
+          )}
         </div>
 
         <div className="input-group">
           <label className="input-label">البريد الإلكتروني</label>
           <div className="input-wrapper">
-            <input type="email" {...register('email')} className={`input-field input-with-icon ${errors.email ? 'is-invalid' : ''}`} placeholder="name@example.com" />
+            <input
+              type="email"
+              {...register("email")}
+              className={`input-field input-with-icon ${errors.email ? "is-invalid" : ""}`}
+              placeholder="name@example.com"
+            />
             <FaRegEnvelope className="field-icon" />
           </div>
-          {errors.email && <p className="error-message">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="error-message">{errors.email.message}</p>
+          )}
         </div>
 
         <div className="input-group">
           <label className="input-label">كلمة المرور</label>
           <div className="input-wrapper">
-            <input type="password" {...register('password')} className={`input-field input-with-icon ${errors.password ? 'is-invalid' : ''}`} placeholder="********" />
+            <input
+              type="password"
+              {...register("password")}
+              className={`input-field input-with-icon ${errors.password ? "is-invalid" : ""}`}
+              placeholder="********"
+            />
             <FaLock className="field-icon" />
           </div>
-          {errors.password && <p className="error-message">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="error-message">{errors.password.message}</p>
+          )}
         </div>
 
         <div className="input-group">
           <label className="input-label">تأكيد كلمة المرور</label>
           <div className="input-wrapper">
-            <input type="password" {...register('confirmPassword')} className={`input-field input-with-icon ${errors.confirmPassword ? 'is-invalid' : ''}`} placeholder="********" />
+            <input
+              type="password"
+              {...register("confirmPassword")}
+              className={`input-field input-with-icon ${errors.confirmPassword ? "is-invalid" : ""}`}
+              placeholder="********"
+            />
             <FaLock className="field-icon" />
           </div>
-          {errors.confirmPassword && <p className="error-message">{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && (
+            <p className="error-message">{errors.confirmPassword.message}</p>
+          )}
         </div>
 
-        <button type="submit" className="submit-btn" disabled={isRegisterPending}>
-          {isRegisterPending ? 'جاري الإنشاء...' : 'إنشاء الحساب'}
+        <button
+          type="submit"
+          className="submit-btn"
+          disabled={isRegisterPending}
+        >
+          {isRegisterPending ? "جاري الإنشاء..." : "إنشاء الحساب"}
         </button>
 
-        <button type="button" className="google-btn" onClick={handleGoogleLogin}>
-           <img src="/imges/Icon-Google.png" alt="" />
-            التسجيل بواسطة جوجل
+        <button
+          type="button"
+          className="google-btn"
+          onClick={handleGoogleLogin}
+        >
+          <img src="/imges/Icon-Google.png" alt="" />
+          التسجيل بواسطة جوجل
         </button>
       </form>
-      
+
       <div className="form-footer">
-        <p>لديك حساب بالفعل؟ <Link to="/login">تسجيل الدخول</Link></p>
+        <p>
+          لديك حساب بالفعل؟ <Link to="/login">تسجيل الدخول</Link>
+        </p>
       </div>
     </>
   );
