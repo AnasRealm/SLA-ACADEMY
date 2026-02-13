@@ -11,7 +11,7 @@ import Specializations from "./feature/Specializations/pages/specializations";
 import LoginPage from "./feature/auth/pages/LoginPage";
 import SignupPage from "./feature/auth/pages/SignupPage";
 
-// 👇 (1) هذه هي الاستيرادات الجديدة التي يجب إضافتها 👇
+// الاستيرادات الجديدة
 import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
 import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
 import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage"; 
@@ -29,14 +29,16 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-   
-        {/* <Route path="/auth/verify-email" element={<VerifyEmailPage />} /> */}
+        {/* 👇 التعديل الأول: صفحة تفعيل الإيميل (أزلنا التعليق وعدلنا المسار) */}
+        {/* أنفال يرسل الرابط: https://slacademy.io/verify-email */}
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
 
         {/* مسار استعادة كلمة المرور */}
         <Route path="/password/reset" element={<ResetPasswordPage />} />
 
-        {/* مسار تسجيل الدخول بجوجل */}
-        <Route path="/auth/google/redirect" element={<GoogleCallbackPage />} />
+        {/* 👇 التعديل الثاني: صفحة استقبال جوجل (عدلنا المسار) */}
+        {/* أنفال يرسل الرابط: https://slacademy.io/auth/callback */}
+        <Route path="/auth/callback" element={<GoogleCallbackPage />} />
 
       </Routes>
     </Router>
