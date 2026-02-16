@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../hooks/useAuth";
-import { getGoogleAuthUrl } from "../services/authService";
+// import { getGoogleAuthUrl } from "../services/authService";
 import { FaRegUser, FaPhone, FaRegEnvelope, FaLock } from "react-icons/fa";
 
 const schema = yup.object().shape({

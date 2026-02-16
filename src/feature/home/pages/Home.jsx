@@ -1,8 +1,8 @@
-import MainLayout from "../../../sheard/layout/MainLayout";
+import MainLayout from "../../../shared/layout/MainLayout";
+import Categories from "../../categories/components/Categories";
+import MostPopular from "../../MostPopular/components/MostPopular";
 import About from "../componats/about/About";
-import Categories from "../componats/categories/Categories";
 import Hero from "../componats/hero/Hero";
-import MostPopular from "../componats/MostPopular/MostPopular";
 
 const Home = () => {
   return (

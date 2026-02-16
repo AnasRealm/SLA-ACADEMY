@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, User, Mail, Phone, Lock, LogOut } from 'lucide-react';
-import MainLayout from '../../sheard/layout/MainLayout';
+import MainLayout from '../../shared/layout/MainLayout';
 import { logoutUser } from '../auth/services/authService';
 import './Profile.css';
 

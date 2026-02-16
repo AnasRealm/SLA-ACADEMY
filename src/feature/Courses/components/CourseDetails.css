@@ -206,3 +206,115 @@
     transform: rotate(0deg);
   }
 }
+
+
+/* --- تنسيقات منهج الدورة --- */
+.curriculum-container {
+  margin-top: 60px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.curriculum-title {
+  color: #1e293b;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.video-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.video-item:hover {
+  background: white;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateX(-5px);
+}
+
+.video-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.video-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.video-title {
+  font-size: 1.05rem;
+  color: #334155;
+  margin: 0;
+}
+
+.video-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.video-duration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.play-btn {
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+  color: #1d4ed8;
+}
+
+.play-btn.locked {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .video-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .video-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

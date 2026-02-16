@@ -1,6 +1,6 @@
 import React from "react";
 import { Mail, Phone, MapPin, Facebook } from "lucide-react";
-import MainLayout from "../../sheard/layout/MainLayout";
+import MainLayout from "../../shared/layout/MainLayout";
 import "./Contact.css";
 
 const Contact = () => {
