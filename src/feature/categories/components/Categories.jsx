@@ -45,7 +45,7 @@ const Categories = () => {
           {/* 3. التأكد من وجود بيانات قبل عمل map */}
           {categories && categories.length > 0 ? (
             categories.map(category => (
-              <Link key={category.id} to={`/course/${category.id}`} className="ml-card-link">
+              <Link key={category.id} to={`/category/${category.id}`} className="ml-card-link">
                 
                 {/* الصندوق الأبيض */}
                 <div className="ml-icon-box">
