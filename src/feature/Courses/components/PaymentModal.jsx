@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { X, Upload, CheckCircle, Copy } from 'lucide-react';
+import { X, Upload, CheckCircle, Copy, Loader2 } from 'lucide-react'; // أضفت Loader2 للتحميل
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
+import { useSubmitEnrollment } from '../hooks/useEnrollment'; // استيراد الهوك الجديد
 import './PaymentModal.css';
 
-const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCourse }) => {
-  const { data: methods, isLoading } = usePaymentMethods();
+const PaymentModal = ({ isOpen, onClose, courseId, coursePrice, courseName, isTrainingCourse }) => {
+  const { data: methods, isLoading: methodsLoading } = usePaymentMethods();
+  
+  // استدعاء هوك الدفع
+  const { mutate: enroll, isPending: isSubmitting } = useSubmitEnrollment();
+
   const [selectedMethodId, setSelectedMethodId] = useState('');
   const [receiptFile, setReceiptFile] = useState(null);
 
@@ -37,7 +42,6 @@ const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCour
 
   // --- منطق الدفع للكورسات الأونلاين ---
 
-  // البحث عن الطريقة المختارة لعرض تفاصيلها
   const selectedMethod = methods?.find(m => m.id.toString() === selectedMethodId);
 
   const handleFileChange = (e) => {
@@ -48,10 +52,33 @@ const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCour
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // هنا كود إرسال الدفع للباك إند
-    console.log("Submitting:", { selectedMethodId, receiptFile });
-    alert("تم إرسال طلبك وجاري مراجعته من قبل الإدارة");
-    onClose();
+    
+    if (!receiptFile || !selectedMethodId) {
+        alert("يرجى اختيار طريقة الدفع ورفع صورة الإيصال");
+        return;
+    }
+
+    // إرسال البيانات للباك إند
+    enroll(
+      {
+        courseId: courseId,
+        paymentMethodId: selectedMethodId,
+        receiptFile: receiptFile
+      },
+      {
+        onSuccess: (data) => {
+          alert("تم إرسال طلب الاشتراك بنجاح! سيتم تفعيل الدورة بعد مراجعة الإيصال.");
+          onClose();
+          // تصفير الحقول
+          setReceiptFile(null);
+          setSelectedMethodId('');
+        },
+        onError: (error) => {
+          console.error(error);
+          alert(error?.response?.data?.message || "حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى.");
+        }
+      }
+    );
   };
 
   return (
@@ -64,7 +91,7 @@ const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCour
           <p>اتبع الخطوات لإتمام الاشتراك في: {courseName}</p>
         </div>
 
-        {isLoading ? (
+        {methodsLoading ? (
           <p style={{textAlign: 'center', padding: '20px'}}>جاري تحميل طرق الدفع...</p>
         ) : (
           <form className="modal-body" onSubmit={handleSubmit}>
@@ -87,7 +114,7 @@ const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCour
               </select>
             </div>
 
-            {/* 2. تفاصيل الحساب (تظهر فقط عند الاختيار) */}
+            {/* 2. تفاصيل الحساب */}
             {selectedMethod && (
               <div className="account-details-box fade-in">
                 <div className="detail-row">
@@ -140,8 +167,14 @@ const PaymentModal = ({ isOpen, onClose, coursePrice, courseName, isTrainingCour
             </div>
 
             <div className="modal-footer">
-              <button type="button" className="btn-secondary" onClick={onClose}>إلغاء</button>
-              <button type="submit" className="btn-primary">إرسال الإيصال للتفعيل</button>
+              <button type="button" className="btn-secondary" onClick={onClose} disabled={isSubmitting}>إلغاء</button>
+              <button type="submit" className="btn-primary" disabled={isSubmitting}>
+                {isSubmitting ? (
+                    <span style={{display: 'flex', alignItems: 'center', gap: '5px', justifyContent: 'center'}}>
+                        <Loader2 className="animate-spin" size={18} /> جاري الإرسال...
+                    </span>
+                ) : 'إرسال الإيصال للتفعيل'}
+              </button>
             </div>
 
           </form>

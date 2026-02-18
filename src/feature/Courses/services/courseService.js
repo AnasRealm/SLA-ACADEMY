@@ -19,3 +19,9 @@ export const fetchCoursesByCategory = async (categoryId) => {
   
   return response.data.data.courses; 
 };
+
+export const fetchVideoStreamUrl = async (videoId) => {
+  const response = await apiClient.get(`/videos/${videoId}/url`);
+  // حسب الـ JSON الذي أرسلته، الرابط موجود هنا:
+  return response.data.data; 
+};

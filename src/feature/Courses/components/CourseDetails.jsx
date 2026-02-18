@@ -3,20 +3,22 @@ import { useParams } from 'react-router-dom';
 import { ChevronLeft, Clock, BarChart } from 'lucide-react'; 
 import MainLayout from '../../../shared/layout/MainLayout';
 import { useCourseDetails } from '../hooks/useCourseDetails';
+import { useCheckEnrollment } from '../hooks/useEnrollment'; // استيراد هوك التحقق
 import PaymentModal from './PaymentModal';
-import CourseCurriculum from './CourseCurriculum'; // 👈 1. تم إضافة استيراد مكون المنهج
+import CourseCurriculum from './CourseCurriculum'; 
 import './CourseDetails.css';
 
 const CourseDetails = () => {
   const { id } = useParams();
   
-  // استدعاء الهوك لجلب بيانات الدورة
+  // 1. جلب بيانات الدورة
   const { data: course, isLoading, isError } = useCourseDetails(id);
   
-  // حالة فتح وإغلاق مودال الدفع
+  // 2. التحقق من اشتراك الطالب في هذه الدورة
+  const { isEnrolled, isLoading: isEnrollmentLoading } = useCheckEnrollment(id);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // دالة معالجة الصور
   const getImageUrl = (url) => {
     if (!url) return '/imges/porgraming.webp';
     if (url.startsWith('http')) return url;
@@ -43,21 +45,17 @@ const CourseDetails = () => {
      );
   }
 
-  // شرط تحديد نوع الكورس (هل هو تدريب/معسكر أم كورس أونلاين عادي)
+  // تحديد نوع الكورس
   const isTrainingOrPopular = 
       Number(course.price) === 0 || 
       course.category?.name?.includes('تدريب') || 
       course.category?.name?.includes('معسكر');
-
-  // 👇 حالة مؤقتة: هل المستخدم مشترك؟ (يمكنك لاحقاً جلبها من الـ API)
-  const isUserEnrolled = false; 
 
   return (
     <MainLayout>
       <div className="course-premium-wrapper">
         <div className="container content-grid">
           
-          {/* الجانب الأيمن: النصوص والمعلومات */}
           <div className="course-content-block">
             <div className="badge-new">{course.category?.name || 'دورة مميزة'}</div>
             
@@ -72,12 +70,10 @@ const CourseDetails = () => {
                 <div className="avatar-mini">S</div>
                 <span>المدرب: <strong>SLA Team</strong></span>
               </div>
-              
               <div className="meta-pill">
                 <BarChart size={16} className="text-blue-500" />
                 <span>المستوى: <strong>{course.level}</strong></span>
               </div>
-
                <div className="meta-pill">
                 <Clock size={16} className="text-blue-500" />
                 <span>{course.duration} ساعة</span>
@@ -90,20 +86,26 @@ const CourseDetails = () => {
                 <span className="amount">{course.price}</span>
               </div>
               
-              <button className="primary-cta-btn" onClick={() => setIsModalOpen(true)}>
-                 {isTrainingOrPopular ? 'احجز مقعدك الآن' : 'اشترك الآن'}
-                <ChevronLeft size={20} />
-              </button>
+              {/* تغيير الزر بناءً على حالة الاشتراك */}
+              {isEnrolled ? (
+                <button className="primary-cta-btn" style={{background: '#10b981', cursor: 'default'}}>
+                   أنت مشترك بالفعل
+                </button>
+              ) : (
+                <button className="primary-cta-btn" onClick={() => setIsModalOpen(true)}>
+                   {isTrainingOrPopular ? 'احجز مقعدك الآن' : 'اشترك الآن'}
+                   <ChevronLeft size={20} />
+                </button>
+              )}
             </div>
             
             <div className="trust-badges">
-                <span>عدد المشتركين: {course.enrollments_count}</span>
+                <span>عدد المشتركين: {course.enrollments_count || 0}</span>
                 <span>•</span>
                 <span>تاريخ النشر: {new Date(course.created_at).toLocaleDateString('ar-EG')}</span>
             </div>
           </div>
 
-          {/* الجانب الأيسر: الصورة */}
           <div className="course-media-block">
             <div className="image-decorator">
               <div className="image-holder">
@@ -120,15 +122,15 @@ const CourseDetails = () => {
         </div>
       </div>
 
-      {/* 👇 2. قسم عرض الفيديوهات (المنهاج) تم إضافته هنا */}
+      {/* قسم عرض الفيديوهات: نمرر isEnrolled لفتح القفل */}
       <div className="container" style={{ marginBottom: '80px', position: 'relative', zIndex: 10 }}>
-         {/* تمرير معرف الدورة وحالة الاشتراك للمكون */}
-         <CourseCurriculum courseId={id} isEnrolled={isUserEnrolled} />
+         <CourseCurriculum courseId={id} isEnrolled={isEnrolled} />
       </div>
 
       <PaymentModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
+        courseId={course.id}       // <-- مهم جداً: تمرير الآيدي للدفع
         coursePrice={course.price}
         courseName={course.title}
         isTrainingCourse={isTrainingOrPopular} 
