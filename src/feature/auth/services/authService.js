@@ -69,3 +69,9 @@ export const getGoogleAuthUrl = async () => {
   const response = await apiClient.get('/auth/continue-with-google');
   return response.data; 
 };
+
+export const fetchUserProfile = async () => {
+  const response = await apiClient.get('/user');
+  return response.data.data.data; // لاحظ التداخل في الـ JSON: data -> data -> data (حسب ما أرسلت)
+  // ملاحظة: تأكد من الباك إند، عادة تكون response.data.data فقط، لكن الـ JSON المرسل فيه data مرتين
+};

@@ -10,3 +10,8 @@ export const fetchTrainingCourses = async () => {
   // response.data.data.training_courses -> المصفوفة التي تحتوي الكورسات
   return response.data.data.training_courses;
 };
+
+export const fetchTrainingCourseDetails = async (id) => {
+  const response = await apiClient.get(`/training-courses/${id}`);
+  return response.data.data; // بناءً على الـ JSON الثاني الذي أرسلته
+};

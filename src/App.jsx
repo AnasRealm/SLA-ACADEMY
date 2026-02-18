@@ -15,7 +15,8 @@ import SignupPage from "./feature/auth/pages/SignupPage";
 // الاستيرادات الجديدة
 import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
 import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
-import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage"; 
+import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage";
+import CategoryCoursesPage from "./feature/Courses/pages/CategoryCoursesPage";
 
 function App() {
   return (
@@ -26,21 +27,13 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/course/:id" element={<CourseDetails />} />
+        <Route path="/category/:id" element={<CategoryCoursesPage />} />
         <Route path="/TrainingCourses" element={<TrainingCourses />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-
-        {/* 👇 التعديل الأول: صفحة تفعيل الإيميل (أزلنا التعليق وعدلنا المسار) */}
-        {/* أنفال يرسل الرابط: https://slacademy.io/verify-email */}
         <Route path="/verify-email" element={<VerifyEmailPage />} />
-
-        {/* مسار استعادة كلمة المرور */}
         <Route path="/password/reset" element={<ResetPasswordPage />} />
-
-        {/* 👇 التعديل الثاني: صفحة استقبال جوجل (عدلنا المسار) */}
-        {/* أنفال يرسل الرابط: https://slacademy.io/auth/callback */}
         <Route path="/auth/callback" element={<GoogleCallbackPage />} />
-
       </Routes>
     </Router>
   );

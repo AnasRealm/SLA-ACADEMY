@@ -12,3 +12,10 @@ export const fetchCourseVideos = async (courseId) => {
   // البيانات موجودة داخل response.data.data وهي مصفوفة
   return response.data.data;
 };
+
+// أضف هذه الدالة في نهاية الملف أو مع بقية الدوال
+export const fetchCoursesByCategory = async (categoryId) => {
+  const response = await apiClient.get(`/courses?category_id=${categoryId}`); 
+  
+  return response.data.data.courses; 
+};

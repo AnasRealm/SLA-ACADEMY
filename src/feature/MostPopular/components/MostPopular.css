@@ -169,18 +169,18 @@
 }
 
 .swiper {
-  overflow-y: visible !important; /* للسماح للنقاط والخطوط بالظهور خارج حدود السلايدر */
+  /* overflow-y: visible !important;  */
 }
 
 /* --- تنسيقات نقاط التنقل (Dots) --- */
 .swiper-pagination {
   position: absolute;
-  bottom: 25px !important;
+  bottom: -25px !important;
 }
 
 .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   background: #cbd5e0;
   opacity: 1;
   transition: all 0.3s ease;

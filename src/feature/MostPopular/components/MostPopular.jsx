@@ -42,7 +42,7 @@ const MostPopular = () => {
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={30}
             // تفعيل الأسهم
-            navigation={true}
+            navigation={false}
             autoplay={{
               delay: 3000,
               disableOnInteraction: false,
