@@ -141,3 +141,5 @@ const CourseDetails = () => {
 };
 
 export default CourseDetails;
+
+// bla bla bla
