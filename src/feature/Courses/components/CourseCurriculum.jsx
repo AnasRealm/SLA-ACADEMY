@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { PlayCircle, Clock, Lock, X } from 'lucide-react'; // تأكد من استيراد X للإغلاق
+import { PlayCircle, Clock, Lock, X } from 'lucide-react'; 
 import { useCourseVideos } from '../hooks/useCourseVideos';
-import { fetchVideoStreamUrl } from '../services/courseService'; // استيراد الدالة الجديدة
+import { fetchVideoStreamUrl } from '../services/courseService'; 
 import './CourseDetails.css';
 
 const CourseCurriculum = ({ courseId, isEnrolled }) => {
   const { data: videos, isLoading, isError } = useCourseVideos(courseId);
   
-  // حالات لتشغيل الفيديو
-  const [playingVideo, setPlayingVideo] = useState(null); // لتخزين الفيديو الحالي
-  const [videoUrl, setVideoUrl] = useState(null); // لتخزين رابط البث
+  const [playingVideo, setPlayingVideo] = useState(null); 
+  const [videoUrl, setVideoUrl] = useState(null); 
   const [loadingVideo, setLoadingVideo] = useState(false);
 
-  // دالة التعامل مع ضغط زر التشغيل
   const handlePlayClick = async (videoId) => {
     if (!isEnrolled) {
       alert("يجب عليك الاشتراك في الدورة لمشاهدة المحتوى");
@@ -22,7 +20,7 @@ const CourseCurriculum = ({ courseId, isEnrolled }) => {
     setLoadingVideo(true);
     try {
       const data = await fetchVideoStreamUrl(videoId);
-      setVideoUrl(data.stream_url); // تخزين الرابط القادم من الـ API
+      setVideoUrl(data.stream_url); 
       setPlayingVideo(videoId);
     } catch (error) {
       console.error("Failed to fetch video url", error);
@@ -36,6 +34,9 @@ const CourseCurriculum = ({ courseId, isEnrolled }) => {
     setPlayingVideo(null);
     setVideoUrl(null);
   };
+
+  // ++ (جديد) جلب تفاصيل الفيديو المشتغل حالياً لعرض عنوانه
+  const activeVideo = videos?.find(v => v.id === playingVideo);
 
   if (isLoading) return <div className="loading-text">جارِ تحميل المنهج...</div>;
   if (isError) return null;
@@ -67,7 +68,7 @@ const CourseCurriculum = ({ courseId, isEnrolled }) => {
                 <button 
                   className={`play-btn ${!isEnrolled ? 'locked' : ''}`}
                   onClick={() => handlePlayClick(video.id)}
-                  disabled={loadingVideo && playingVideo === video.id} // تعطيل الزر أثناء التحميل
+                  disabled={loadingVideo && playingVideo === video.id} 
                 >
                    {!isEnrolled ? <Lock size={20} /> : (
                      loadingVideo && playingVideo === video.id ? '...' : <PlayCircle size={24} />
@@ -79,17 +80,29 @@ const CourseCurriculum = ({ courseId, isEnrolled }) => {
         </div>
       </div>
 
-      {/* نافذة تشغيل الفيديو (Video Modal) */}
+      {/* --- التعديل الجديد على نافذة تشغيل الفيديو --- */}
       {videoUrl && (
         <div className="video-modal-overlay" onClick={closeVideo}>
           <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-video-btn" onClick={closeVideo}>
-                <X size={24} color="white" />
-            </button>
-            <video controls autoPlay className="main-video-player">
-              <source src={videoUrl} type="video/mp4" />
-              المتصفح لا يدعم تشغيل الفيديو.
-            </video>
+            
+            {/* ترويسة الفيديو (الهيدر) */}
+            <div className="video-modal-header">
+               <h4 className="video-playing-title">
+                  {activeVideo?.title || 'جارِ التشغيل...'}
+               </h4>
+               <button className="close-video-btn" onClick={closeVideo} title="إغلاق">
+                  <X size={22} />
+               </button>
+            </div>
+
+            {/* حاوية الفيديو بالأبعاد الصحيحة */}
+            <div className="video-wrapper">
+              <video controls autoPlay className="main-video-player" controlsList="nodownload">
+                <source src={videoUrl} type="video/mp4" />
+                المتصفح لا يدعم تشغيل الفيديو.
+              </video>
+            </div>
+            
           </div>
         </div>
       )}

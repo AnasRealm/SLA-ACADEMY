@@ -320,33 +320,129 @@
 }
 
 /* Video Modal Styling */
+/* =========================================
+   تنسيقات مشغل الفيديو (Video Modal Styling)
+   ========================================= */
+
 .video-modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.9);
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.92); /* لون كحلي غامق شفاف */
+  backdrop-filter: blur(8px); /* تأثير العزل/التغبيش للخلفية */
   z-index: 3000;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  /* أنيميشن الظهور السلس */
+  opacity: 0;
+  animation: fadeInOverlay 0.3s forwards ease-out;
+}
+
+@keyframes fadeInOverlay {
+  to { opacity: 1; }
 }
 
 .video-modal-content {
-  width: 90%;
-  max-width: 900px;
-  position: relative;
-}
-
-.main-video-player {
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  max-width: 1000px;
+  background: #0f172a; /* خلفية داكنة للمودال */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* أنيميشن التكبير من الأسفل */
+  transform: scale(0.95) translateY(20px);
+  opacity: 0;
+  animation: scaleUpModal 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
 }
 
+@keyframes scaleUpModal {
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* هيدر الفيديو (عنوان + زر إغلاق) */
+.video-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-playing-title {
+  color: #f8fafc;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* نقطة زرقاء وامضة بجانب الاسم تعطي طابع "اللايف/التشغيل" */
+.video-playing-title::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #3b82f6;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+/* زر الإغلاق الجديد */
 .close-video-btn {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: none;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
+  color: #cbd5e1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-video-btn:hover {
+  background: #ef4444; /* أحمر عند الهوفر */
+  color: white;
+  transform: rotate(90deg); /* حركة دوران خفيفة */
+}
+
+/* حاوية تحافظ على نسبة العرض إلى الارتفاع 16:9 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* نسبة 16:9 Aspect Ratio */
+  background: #000;
+}
+
+/* الفيديو نفسه */
+.main-video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
 }
