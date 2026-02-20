@@ -1,5 +1,5 @@
-import React from 'react';
-import './Footer.css';
+import React from "react";
+import "./Footer.css";
 
 const Footer = () => {
   return (
@@ -8,21 +8,44 @@ const Footer = () => {
         <div className="footer-content">
           {/* Logo Section */}
           <div className="footer-logo">
-            <img src="/imges/logo.png" alt="SL Academy Logo" />
-            <p>أكاديمية متخصصة في التعليم التقني والبرمجة  متخصصة في التطوير التقني</p>
-            
+            <img src="/imges/logo.png" alt="SL Academy Logo" loading="lazy" />
+            <p>
+              أكاديمية متخصصة في التعليم التقني والبرمجة متخصصة في التطوير
+              التقني
+            </p>
+
             {/* Social Media */}
             <div className="social-media">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link facebook">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link facebook"
+              >
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link instagram">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link instagram"
+              >
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link twitter">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link twitter"
+              >
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link linkedin">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link linkedin"
+              >
                 <i className="fab fa-linkedin-in"></i>
               </a>
             </div>
@@ -32,10 +55,18 @@ const Footer = () => {
           <div className="footer-section">
             <h4>روابط سريعة</h4>
             <ul>
-              <li><a href="#home">الرئيسية</a></li>
-              <li><a href="#courses">الدورات</a></li>
-              <li><a href="#about">من نحن</a></li>
-              <li><a href="#contact">تواصل معنا</a></li>
+              <li>
+                <a href="#home">الرئيسية</a>
+              </li>
+              <li>
+                <a href="#courses">الدورات</a>
+              </li>
+              <li>
+                <a href="#about">من نحن</a>
+              </li>
+              <li>
+                <a href="#contact">تواصل معنا</a>
+              </li>
             </ul>
           </div>
 
@@ -43,10 +74,18 @@ const Footer = () => {
           <div className="footer-section">
             <h4>الدورات</h4>
             <ul>
-              <li><a href="#programming">البرمجة</a></li>
-              <li><a href="#design">التصميم</a></li>
-              <li><a href="#english">اللغة الإنجليزية</a></li>
-              <li><a href="#work">العمل الحر</a></li>
+              <li>
+                <a href="#programming">البرمجة</a>
+              </li>
+              <li>
+                <a href="#design">التصميم</a>
+              </li>
+              <li>
+                <a href="#english">اللغة الإنجليزية</a>
+              </li>
+              <li>
+                <a href="#work">العمل الحر</a>
+              </li>
             </ul>
           </div>
 
@@ -54,9 +93,9 @@ const Footer = () => {
           <div className="footer-section">
             <h4>تواصل معنا</h4>
             <div className="contact-info">
-              <p>📧 info@slacademy.com</p>
-              <p>📱 +966 123 456 789</p>
-              <p>📍 الرياض، المملكة العربية السعودية</p>
+              <p>📧 ramaalbanialmorahli@gmail.com</p>
+              <p>📱 +963 968 364 986</p>
+              <p>📍 دمشق , بجانب كلية الاقتصاد </p>
             </div>
           </div>
         </div>
@@ -64,7 +103,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="footer-bottom">
           <div className="copyright">
-            <p>&copy; 2024 SL Academy. جميع الحقوق محفوظة</p>
+            <p>&copy; 2026 SL Academy. جميع الحقوق محفوظة</p>
           </div>
         </div>
       </div>
