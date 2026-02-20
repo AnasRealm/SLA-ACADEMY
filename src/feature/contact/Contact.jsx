@@ -21,7 +21,7 @@ const Contact = () => {
                 </div>
                 <div className="contact-details">
                   <h3>رقم الهاتف</h3>
-                  <p>+963 953602163</p>
+                  <p>+963 968 364 986</p>
                 </div>
               </div>
 
@@ -31,7 +31,7 @@ const Contact = () => {
                 </div>
                 <div className="contact-details">
                   <h3>البريد الإلكتروني</h3>
-                  <p>info@slacademy.sy</p>
+                  <p>ramaalbanialmorahli@gmail.com</p>
                 </div>
               </div>
 
@@ -51,7 +51,9 @@ const Contact = () => {
                 </div>
                 <div className="contact-details">
                   <h3>فيسبوك</h3>
-                  <p>SL Academy</p>
+                  <a href="https://www.facebook.com/share/1C1AMLRQgW/">
+                    SL Academy
+                  </a>
                 </div>
               </div>
             </div>
@@ -63,7 +65,7 @@ const Contact = () => {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.699695370277!2d36.287124024367856!3d33.5091894733664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1518e0b5f3932433%3A0xc37aea1ab8783e6a!2z2YPZhNmK2Kkg2KfZhNil2YLYqti12KfYryAtINis2KfZhdi52Kkg2K_Zhdi02YI!5e0!3m2!1sar!2s!4v1769601357483!5m2!1sar!2s"
                 width="100%"
                 height="550"
-                style={{border: 0}}
+                style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
