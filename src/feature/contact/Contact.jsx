@@ -31,7 +31,12 @@ const Contact = () => {
                 </div>
                 <div className="contact-details">
                   <h3>البريد الإلكتروني</h3>
-                  <p>ramaalbanialmorahli@gmail.com</p>
+                  <a
+                    href="mailto:ramaalbanialmorahli@gmail.com"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    ramaalbanialmorahli@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -51,7 +56,12 @@ const Contact = () => {
                 </div>
                 <div className="contact-details">
                   <h3>فيسبوك</h3>
-                  <a href="https://www.facebook.com/share/1C1AMLRQgW/">
+                  <a
+                    href="https://www.facebook.com/share/1C1AMLRQgW/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     SL Academy
                   </a>
                 </div>
