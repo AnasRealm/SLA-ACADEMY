@@ -1,39 +1,53 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { 
-  submitEnrollment, 
-  fetchStudentCourses, 
-  fetchStudentEnrollments 
+import {
+  submitEnrollment,
+  fetchStudentCourses,
+  fetchStudentEnrollments,
+  fetchStudentEnrollmentRequests,
 } from "../services/enrollmentService";
 
-// هوك لتقديم طلب الاشتراك (لزر الدفع)
 export const useSubmitEnrollment = () => {
   const queryClient = useQueryClient();
-  
   return useMutation({
     mutationFn: submitEnrollment,
     onSuccess: () => {
-      // تحديث البيانات بعد النجاح
-      queryClient.invalidateQueries(['student-enrollments']);
-      queryClient.invalidateQueries(['student-courses']);
+      queryClient.invalidateQueries(["student-enrollments"]);
+      queryClient.invalidateQueries(["student-enrollment-requests"]);
+      queryClient.invalidateQueries(["student-courses"]);
     },
   });
 };
 
-// هوك لجلب كورسات الطالب (المقبولة فقط)
 export const useStudentCourses = () => {
   return useQuery({
-    queryKey: ['student-courses'],
+    queryKey: ["student-courses"],
     queryFn: fetchStudentCourses,
     retry: 1,
   });
 };
 
-// هوك ذكي: يفحص هل هذا الكورس مملوك للطالب؟
 export const useCheckEnrollment = (courseId) => {
   const { data: myCourses, isLoading } = useStudentCourses();
-  
-  // نفحص المصفوفة لنرى هل الـ ID موجود فيها
-  const isEnrolled = myCourses?.some(course => Number(course.id) === Number(courseId));
-
+  const isEnrolled = myCourses?.some((c) => Number(c.id) === Number(courseId));
   return { isEnrolled: !!isEnrolled, isLoading };
+};
+
+/** سجل الاشتراكات (كل الحالات) مع تصفح وفلتر حسب الحالة — للبروفايل */
+export const useStudentEnrollments = (params = {}) => {
+  const { page = 1, per_page = 10, status = "all" } = params;
+  return useQuery({
+    queryKey: ["student-enrollments", page, per_page, status],
+    queryFn: () => fetchStudentEnrollments({ page, per_page, status }),
+    retry: 1,
+  });
+};
+
+/** طلبات الاشتراك قيد المراجعة فقط — للبروفايل */
+export const useStudentEnrollmentRequests = (params = {}) => {
+  const { page = 1, per_page = 12 } = params;
+  return useQuery({
+    queryKey: ["student-enrollment-requests", page, per_page],
+    queryFn: () => fetchStudentEnrollmentRequests({ page, per_page }),
+    retry: 1,
+  });
 };

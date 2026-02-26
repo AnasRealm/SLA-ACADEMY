@@ -1,21 +1,59 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query'; // استيراد useQuery
-import { Camera, User, Mail, Phone, Lock, LogOut } from 'lucide-react';
-import MainLayout from '../../shared/layout/MainLayout';
-import { logoutUser, fetchUserProfile } from '../auth/services/authService'; // استيراد دالة الجلب
-import './Profile.css';
+import React, { useState, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { Camera, User, Lock, LogOut, BookOpen, FileText, Compass, ChevronLeft } from "lucide-react";
+import MainLayout from "../../shared/layout/MainLayout";
+import { logoutUser, fetchUserProfile } from "../auth/services/authService";
+import { useStudentCourses, useStudentEnrollments } from "../Courses/hooks/useEnrollment";
+import { fetchPopularCourses } from "../MostPopular/services/mostPopularService";
+import "./Profile.css";
+
+const ENROLLMENT_STATUS_OPTIONS = [
+  { value: "all", label: "الكل" },
+  { value: "approved", label: "موافق عليه" },
+  { value: "pending", label: "قيد المراجعة" },
+  { value: "rejected", label: "مرفوض" },
+  { value: "cancelled", label: "ملغي" },
+];
+
+const getEnrollmentStatusClass = (status) => {
+  if (!status) return "";
+  const s = String(status).toLowerCase();
+  if (s.includes("موافق") || s === "approved") return "approved";
+  if (s.includes("مرفوض") || s === "rejected") return "rejected";
+  if (s.includes("مراجعة") || s === "pending") return "pending";
+  if (s.includes("ملغي") || s === "cancelled") return "cancelled";
+  return "";
+};
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const [enrollmentPage, setEnrollmentPage] = useState(1);
+  const [enrollmentStatus, setEnrollmentStatus] = useState("all");
 
-  // 1. جلب بيانات المستخدم الحقيقية
   const { data: user, isLoading, isError } = useQuery({
-    queryKey: ['user-profile'],
+    queryKey: ["user-profile"],
     queryFn: fetchUserProfile,
     retry: 1,
   });
+
+  const { data: myCourses, isLoading: coursesLoading } = useStudentCourses();
+  const { data: enrollmentsData, isLoading: enrollmentsLoading } = useStudentEnrollments({
+    page: enrollmentPage,
+    per_page: 10,
+    status: enrollmentStatus,
+  });
+  const { data: popularCourses, isLoading: popularLoading } = useQuery({
+    queryKey: ["popular-courses"],
+    queryFn: fetchPopularCourses,
+    retry: 1,
+  });
+
+  const enrollments = enrollmentsData?.enrollments ?? [];
+  const pagination = enrollmentsData?.pagination ?? {};
+  const totalPages = pagination.total_pages ?? pagination.last_page ?? 1;
+  const currentPage = Number(pagination.current_page) || 1;
 
   // حالة لتغيير كلمة المرور (محلية)
   const [passwordData, setPasswordData] = useState({
@@ -142,6 +180,122 @@ const ProfilePage = () => {
                 </div>
               </div>
 
+            </div>
+          </section>
+
+          {/* قسم كورساتي — الكورسات المشترك فيها */}
+          <section className="profile-section">
+            <h3 className="section-title-new"><BookOpen /> كورساتي</h3>
+            {coursesLoading ? (
+              <p className="profile-muted">جاري تحميل الكورسات...</p>
+            ) : !myCourses?.length ? (
+              <div className="profile-empty-block">
+                <p className="profile-muted">لا توجد كورسات مشترك فيها حالياً.</p>
+                <Link to="/" className="profile-link-btn">اكتشف الكورسات المتاحة</Link>
+              </div>
+            ) : (
+              <div className="profile-courses-grid">
+                {myCourses.map((course) => (
+                  <Link to={`/course/${course.id}`} className="profile-course-card" key={course.id}>
+                    <div className="profile-course-img-wrap">
+                      <img
+                        src={course.thumbnail_url?.startsWith("http") ? course.thumbnail_url : "/imges/coding.png"}
+                        alt={course.title}
+                        onError={(e) => { e.target.src = "/imges/coding.png"; }}
+                      />
+                    </div>
+                    <div className="profile-course-info">
+                      <h4>{course.title}</h4>
+                      <span className="profile-course-meta">
+                        {course.duration ? `${course.duration} ساعة` : ""}
+                        {course.videos_count != null ? ` · ${course.videos_count} فيديو` : ""}
+                      </span>
+                      <span className="profile-course-go"><ChevronLeft /> افتح الكورس</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* قسم سجل الاشتراكات */}
+          <section className="profile-section">
+            <h3 className="section-title-new"><FileText /> سجل الاشتراكات</h3>
+            <div className="profile-enrollment-filters">
+              {ENROLLMENT_STATUS_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  className={`profile-filter-btn ${enrollmentStatus === opt.value ? "active" : ""}`}
+                  onClick={() => { setEnrollmentStatus(opt.value); setEnrollmentPage(1); }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            {enrollmentsLoading ? (
+              <p className="profile-muted">جاري تحميل السجل...</p>
+            ) : !enrollments.length ? (
+              <p className="profile-muted">لا توجد طلبات اشتراك.</p>
+            ) : (
+              <>
+                <div className="profile-enrollments-table-wrap">
+                  <table className="profile-enrollments-table">
+                    <thead>
+                      <tr>
+                        <th>الكورس</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {enrollments.map((row) => (
+                        <tr key={row.id}>
+                          <td>{row.course_title}</td>
+                          <td>{row.date}</td>
+                          <td><span className={`profile-status-badge ${getEnrollmentStatusClass(row.status)}`}>{row.status}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {totalPages > 1 && (
+                  <div className="profile-pagination">
+                    <button type="button" className="profile-page-btn" disabled={currentPage <= 1} onClick={() => setEnrollmentPage((p) => Math.max(1, p - 1))}>السابق</button>
+                    <span className="profile-page-info">صفحة {currentPage} من {totalPages}</span>
+                    <button type="button" className="profile-page-btn" disabled={currentPage >= totalPages} onClick={() => setEnrollmentPage((p) => p + 1)}>التالي</button>
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+
+          {/* قسم المتاح — كورسات للاكتشاف */}
+          <section className="profile-section">
+            <h3 className="section-title-new"><Compass /> كورسات متاحة للاشتراك</h3>
+            {popularLoading ? (
+              <p className="profile-muted">جاري التحميل...</p>
+            ) : popularCourses?.length ? (
+              <div className="profile-courses-grid profile-courses-grid--small">
+                {popularCourses.slice(0, 4).map((course) => (
+                  <Link to={`/course/${course.id}`} className="profile-course-card" key={course.id}>
+                    <div className="profile-course-img-wrap">
+                      <img
+                        src={course.thumbnail_url?.startsWith("http") ? course.thumbnail_url : "/imges/coding.png"}
+                        alt={course.title}
+                        onError={(e) => { e.target.src = "/imges/coding.png"; }}
+                      />
+                    </div>
+                    <div className="profile-course-info">
+                      <h4>{course.title}</h4>
+                      <span className="profile-course-go"><ChevronLeft /> عرض الكورس</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+            <div className="profile-explore-cta">
+              <Link to="/" className="profile-link-btn">اكتشف كل الكورسات</Link>
             </div>
           </section>
 

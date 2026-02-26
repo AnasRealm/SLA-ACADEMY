@@ -200,6 +200,191 @@
   color: var(--white);
 }
 
+/* --- كورساتي + سجل الاشتراكات + المتاح --- */
+.profile-muted {
+  color: var(--text-light);
+  margin: 0;
+}
+
+.profile-empty-block {
+  text-align: center;
+  padding: 1rem 0;
+}
+.profile-empty-block .profile-muted { margin-bottom: 1rem; }
+
+.profile-link-btn {
+  display: inline-block;
+  background: var(--primary-navy);
+  color: var(--white);
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--border-radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.profile-link-btn:hover {
+  background: var(--accent-gold);
+  color: var(--white);
+}
+
+.profile-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.profile-courses-grid--small {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.profile-course-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-light);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.profile-course-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-gold);
+}
+
+.profile-course-img-wrap {
+  aspect-ratio: 16/10;
+  background: var(--border-color);
+  overflow: hidden;
+}
+.profile-course-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-course-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.profile-course-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-navy);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.profile-course-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+.profile-course-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* سجل الاشتراكات */
+.profile-enrollment-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.profile-filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  color: var(--text-dark);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.profile-filter-btn:hover {
+  border-color: var(--primary-navy);
+  color: var(--primary-navy);
+}
+.profile-filter-btn.active {
+  background: var(--primary-navy);
+  color: var(--white);
+  border-color: var(--primary-navy);
+}
+
+.profile-enrollments-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.profile-enrollments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.profile-enrollments-table th,
+.profile-enrollments-table td {
+  padding: 0.75rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid var(--border-color);
+}
+.profile-enrollments-table th {
+  background: var(--bg-light);
+  color: var(--primary-navy);
+  font-weight: 600;
+}
+.profile-status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.profile-status-badge.approved { background: rgba(40, 167, 69, 0.15); color: var(--success-green); }
+.profile-status-badge.rejected { background: rgba(220, 53, 69, 0.15); color: var(--danger-red); }
+.profile-status-badge.pending { background: rgba(181, 148, 97, 0.2); color: var(--accent-gold); }
+.profile-status-badge.cancelled { background: rgba(220, 53, 69, 0.15); color: var(--danger-red); }
+
+.profile-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+.profile-page-btn {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  color: var(--primary-navy);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.profile-page-btn:hover:not(:disabled) {
+  background: var(--bg-light);
+  border-color: var(--primary-navy);
+}
+.profile-page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.profile-page-info {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.profile-explore-cta {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .personal-info-card {
@@ -219,5 +404,28 @@
   }
   .profile-section {
     padding: 1.5rem;
+  }
+  .profile-courses-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-courses-grid--small {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  .profile-enrollment-filters {
+    justify-content: flex-start;
+  }
+  .profile-enrollments-table th,
+  .profile-enrollments-table td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  .profile-pagination {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-courses-grid--small {
+    grid-template-columns: 1fr;
   }
 }
