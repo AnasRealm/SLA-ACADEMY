@@ -75,3 +75,15 @@ export const fetchUserProfile = async () => {
   return response.data.data.data; // لاحظ التداخل في الـ JSON: data -> data -> data (حسب ما أرسلت)
   // ملاحظة: تأكد من الباك إند، عادة تكون response.data.data فقط، لكن الـ JSON المرسل فيه data مرتين
 };
+
+// رفع الصورة الشخصية: POST /profile/avatar مع form-data مفتاح "avatar"
+export const updateProfileAvatar = async (file) => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+  const response = await apiClient.post('/profile/avatar', formData);
+  if (!response.data.status) {
+    throw new Error(response.data.message || 'فشل تحديث الصورة');
+  }
+  // الاستجابة تحتوي data.data ببيانات البروفايل المحدثة (مع avatar الجديد)
+  return response.data.data;
+};

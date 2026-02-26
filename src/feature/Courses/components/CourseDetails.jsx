@@ -123,7 +123,7 @@ const CourseDetails = () => {
       </div>
 
       {/* قسم عرض الفيديوهات: نمرر isEnrolled لفتح القفل */}
-      <div className="container" style={{ marginBottom: '80px', position: 'relative', zIndex: 10 }}>
+      <div className="container curriculum-section">
          <CourseCurriculum courseId={id} isEnrolled={isEnrolled} />
       </div>
 

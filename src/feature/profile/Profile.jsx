@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Camera, User, Lock, LogOut, BookOpen, FileText, Compass, ChevronLeft } from "lucide-react";
 import MainLayout from "../../shared/layout/MainLayout";
-import { logoutUser, fetchUserProfile } from "../auth/services/authService";
+import { logoutUser, fetchUserProfile, updateProfileAvatar } from "../auth/services/authService";
 import { useStudentCourses, useStudentEnrollments } from "../Courses/hooks/useEnrollment";
 import { fetchPopularCourses } from "../MostPopular/services/mostPopularService";
 import "./Profile.css";
@@ -28,9 +28,11 @@ const getEnrollmentStatusClass = (status) => {
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const [enrollmentPage, setEnrollmentPage] = useState(1);
   const [enrollmentStatus, setEnrollmentStatus] = useState("all");
+  const [avatarUploading, setAvatarUploading] = useState(false);
 
   const { data: user, isLoading, isError } = useQuery({
     queryKey: ["user-profile"],
@@ -89,15 +91,33 @@ const ProfilePage = () => {
     }
   };
 
-  // معالجة تغيير الصورة (واجهة فقط حالياً)
   const handleEditPicClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
-  
-  const handleImageChange = (e) => {
-    // يمكنك هنا إضافة كود لرفع الصورة للسيرفر
-    if (e.target.files && e.target.files[0]) {
-       alert("ميزة رفع الصورة تحتاج ربط API خاص بالصور");
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      alert('يرجى اختيار صورة بصيغة JPG أو PNG أو GIF أو WebP');
+      e.target.value = '';
+      return;
+    }
+    setAvatarUploading(true);
+    try {
+      const updated = await updateProfileAvatar(file);
+      if (updated?.avatar != null) {
+        queryClient.setQueryData(['user-profile'], (prev) => ({ ...prev, ...updated }));
+      } else {
+        await queryClient.invalidateQueries({ queryKey: ['user-profile'] });
+      }
+    } catch (err) {
+      const msg = err?.response?.data?.message || err?.message || 'فشل تحديث الصورة، حاول مرة أخرى';
+      alert(msg);
+    } finally {
+      setAvatarUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -153,8 +173,18 @@ const ProfilePage = () => {
                   style={{ display: 'none' }}
                   accept="image/*"
                 />
-                <button className="edit-pic-btn-new" title="تغيير الصورة" onClick={handleEditPicClick}>
-                  <Camera size={18} />
+                <button
+                  type="button"
+                  className="edit-pic-btn-new"
+                  title="تغيير الصورة"
+                  onClick={handleEditPicClick}
+                  disabled={avatarUploading}
+                >
+                  {avatarUploading ? (
+                    <span className="avatar-uploading-text">...</span>
+                  ) : (
+                    <Camera size={18} />
+                  )}
                 </button>
               </div>
 
