@@ -100,7 +100,7 @@ const TrainingCourses = () => {
             <a href="https://facebook.com/yourpage" target="_blank" rel="noreferrer" className="contact-btn fb">
               <FaFacebookF /> فيسبوك
             </a>
-            <a href="https://wa.me/yournumber" target="_blank" rel="noreferrer" className="contact-btn wa">
+            <a href="https://wa.me/963968364986" target="_blank" rel="noreferrer" className="contact-btn wa">
               <FaWhatsapp /> واتساب
             </a>
           </div>

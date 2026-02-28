@@ -1,7 +1,29 @@
 import React from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (sectionId) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleSectionClick = (e, sectionId) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -32,22 +54,6 @@ const Footer = () => {
               >
                 <i className="fab fa-instagram"></i>
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link twitter"
-              >
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link linkedin"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
             </div>
           </div>
 
@@ -56,35 +62,49 @@ const Footer = () => {
             <h4>روابط سريعة</h4>
             <ul>
               <li>
-                <a href="#home">الرئيسية</a>
+                <a href="#home" onClick={(e) => handleSectionClick(e, "home")}>
+                  الرئيسية
+                </a>
               </li>
               <li>
-                <a href="#courses">الدورات</a>
+                <a href="#categories" onClick={(e) => handleSectionClick(e, "categories")}>
+                  الدورات
+                </a>
               </li>
               <li>
-                <a href="#about">من نحن</a>
+                <a href="#about" onClick={(e) => handleSectionClick(e, "about")}>
+                  من نحن
+                </a>
               </li>
               <li>
-                <a href="#contact">تواصل معنا</a>
+                <Link to="/contact">تواصل معنا</Link>
               </li>
             </ul>
           </div>
 
-          {/* Courses */}
+          {/* Courses / دوراتنا */}
           <div className="footer-section">
-            <h4>الدورات</h4>
+            <h4>دوراتنا</h4>
             <ul>
               <li>
-                <a href="#programming">البرمجة</a>
+                <a href="#courses" onClick={(e) => handleSectionClick(e, "courses")}>
+                  البرمجة
+                </a>
               </li>
               <li>
-                <a href="#design">التصميم</a>
+                <a href="#courses" onClick={(e) => handleSectionClick(e, "courses")}>
+                  التصميم
+                </a>
               </li>
               <li>
-                <a href="#english">اللغة الإنجليزية</a>
+                <a href="#courses" onClick={(e) => handleSectionClick(e, "courses")}>
+                  اللغة الإنجليزية
+                </a>
               </li>
               <li>
-                <a href="#work">العمل الحر</a>
+                <a href="#courses" onClick={(e) => handleSectionClick(e, "courses")}>
+                  العمل الحر
+                </a>
               </li>
             </ul>
           </div>

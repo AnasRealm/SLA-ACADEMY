@@ -1,9 +1,26 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './About.css';
-import { Target, Award, Users, ArrowLeft } from 'lucide-react'; // تأكد من استيراد الايقونات
+import { Target, Award, ArrowLeft } from 'lucide-react';
 import aboutImg from '/imges/about.png';
 
 const About = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToCourses = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById('courses');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById('courses');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="about" className="sla-about">
       {/* عناصر زخرفية في الخلفية */}
@@ -53,7 +70,7 @@ const About = () => {
               </div>
             </div>
 
-            <button className="about-btn">
+            <button className="about-btn" onClick={scrollToCourses}>
               <span>اكتشف مسارك الآن</span>
               <ArrowLeft size={20} />
             </button>

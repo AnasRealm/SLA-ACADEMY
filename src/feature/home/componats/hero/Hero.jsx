@@ -1,13 +1,30 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./hero.css";
 
 // Hero component for SL Academy
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (sectionId) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const scrollToNext = () => {
     window.scrollTo({
       top: window.innerHeight,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -31,8 +48,12 @@ const Hero = () => {
               لتجربة تعلم تجمع بين النظرية والتطبيق الاحترافي.
             </p>
             <div className="hero-btns">
-              <button className="primary-btn">ابدأ رحلتك الآن</button>
-              <button className="secondary-btn">استكشف المناهج</button>
+              <button className="primary-btn" onClick={() => scrollToSection("categories")}>
+                ابدأ رحلتك الآن
+              </button>
+              <button className="secondary-btn" onClick={() => navigate("/TrainingCourses")}>
+                استكشف المناهج
+              </button>
             </div>
 
             <div className="hero-stats">

@@ -212,24 +212,6 @@
   background: linear-gradient(135deg, #ED8936, #D69E2E);
 }
 
-.twitter {
-  background: linear-gradient(135deg, #D69E2E, #F6AD55);
-  color: white;
-}
-
-.twitter::before {
-  background: linear-gradient(135deg, #F6AD55, #D69E2E);
-}
-
-.linkedin {
-  background: linear-gradient(135deg, #D69E2E, #ED8936);
-  color: white;
-}
-
-.linkedin::before {
-  background: linear-gradient(135deg, #ED8936, #D69E2E);
-}
-
 .copyright {
   color: #4A5568;
   font-size: 0.95rem;
