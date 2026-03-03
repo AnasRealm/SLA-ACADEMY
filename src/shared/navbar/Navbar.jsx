@@ -72,8 +72,8 @@ const Navbar = () => {
 
           <ul className="nav-menu-desktop">
             <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
-            <li onClick={() => handleLinkClick('categories')}>الدورات</li>
-            <li onClick={() => navigate('/TrainingCourses')}>التخصصات</li>
+            <li onClick={() => handleLinkClick('categories')}>كورسات مصغرة</li>
+            <li onClick={() => navigate('/TrainingCourses')}>كورسات</li>
             <li onClick={() => handleLinkClick('about')}>من نحن</li>
             <li onClick={() => navigate('/contact')}>تواصل معنا</li>
           </ul>
@@ -109,8 +109,8 @@ const Navbar = () => {
         
         <ul className="mobile-menu-links">
           <li onClick={() => handleLinkClick('home')}>الرئيسية</li>
-          <li onClick={() => handleLinkClick('categories')}>الدورات</li>
-          <li onClick={() => navigate('/TrainingCourses')}>التخصصات</li>
+          <li onClick={() => handleLinkClick('categories')}>كورسات مصغرة</li>
+          <li onClick={() => navigate('/TrainingCourses')}>كورسات</li>
           <li onClick={() => handleLinkClick('about')}>من نحن</li>
           <li onClick={() => navigate('/contact')}>تواصل معنا</li>
         </ul>

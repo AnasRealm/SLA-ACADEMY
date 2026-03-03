@@ -37,7 +37,7 @@ const Categories = () => {
       <div className="ml-container">
         
         <div className="ml-header">
-          <span className="ml-title">تخصصاتنا</span>
+          <span className="ml-title">كورسات مصغرة</span>
           <h2 className="ml-subtitle">استكشف المجالات التعليمية</h2>
         </div>
 

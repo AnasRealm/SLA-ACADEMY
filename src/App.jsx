@@ -1,18 +1,16 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// الصفحات الأساسية
 import Home from "./feature/home/pages/Home";
 import ProfilePage from "./feature/profile/Profile";
 import Contact from "./feature/contact/Contact";
-// import CourseDetails from "./feature/course/components/CourseDetails";
 import CourseDetails from "./feature/Courses/components/CourseDetails";
 import ScrollToTop from "./shared/components/ScrollToTop";
 import TrainingCourses from "./feature/TrainingCourses/pages/TrainingCourses";
 import LoginPage from "./feature/auth/pages/LoginPage";
 import SignupPage from "./feature/auth/pages/SignupPage";
 
-// الاستيرادات الجديدة
+
 import VerifyEmailPage from "./feature/auth/pages/VerifyEmailPage";
 import ResetPasswordPage from "./feature/auth/pages/ResetPasswordPage";
 import GoogleCallbackPage from "./feature/auth/pages/GoogleCallbackPage";
